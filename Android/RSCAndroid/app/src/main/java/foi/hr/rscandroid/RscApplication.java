@@ -5,6 +5,9 @@ import com.facebook.appevents.AppEventsLogger;
 
 import android.app.Application;
 
+import foi.hr.rscandroid.data.networking.ApiManagerImpl;
+import foi.hr.rscandroid.data.networking.ApiService;
+
 /**
  * @author Igor Tepavac
  *         igor.tepavac@infinum.hr
@@ -14,6 +17,8 @@ import android.app.Application;
 public class RSCApplication extends Application {
 
     private static RSCApplication instance;
+
+    private static ApiService apiService;
 
     public static RSCApplication getInstance() {
         return instance;
@@ -29,7 +34,12 @@ public class RSCApplication extends Application {
         setInstance(this);
         FacebookSdk.sdkInitialize(this);
         AppEventsLogger.activateApp(this);
+
+        ApiManagerImpl.getInstance().init();
+        apiService = ApiManagerImpl.getInstance().getApiService();
     }
 
-
+    public static ApiService getApiService() {
+        return apiService;
+    }
 }

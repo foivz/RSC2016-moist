@@ -4,6 +4,13 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "24.0.3"
+
+    def STRING = 'String'
+    def BOOLEAN = 'boolean'
+    def TRUE = 'true'
+    def FALSE = 'false'
+    def API_URL = 'API_URL'
+
     defaultConfig {
         applicationId "foi.hr.rscandroid"
         minSdkVersion 21
@@ -11,12 +18,17 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField STRING, API_URL, '"http://138.68.85.154:8000/"'
     }
+
+
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
     }
 }
 
@@ -29,7 +41,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'joda-time:joda-time:2.9.6'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
