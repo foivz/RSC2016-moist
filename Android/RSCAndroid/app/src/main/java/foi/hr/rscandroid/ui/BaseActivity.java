@@ -1,9 +1,11 @@
-package foi.hr.rscandroid;
+package foi.hr.rscandroid.ui;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
+
+import foi.hr.rscandroid.R;
 
 /**
  * @author Igor Tepavac

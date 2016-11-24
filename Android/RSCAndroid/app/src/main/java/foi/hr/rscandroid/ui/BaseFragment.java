@@ -1,4 +1,4 @@
-package foi.hr.rscandroid;
+package foi.hr.rscandroid.ui;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
