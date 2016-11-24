@@ -39,6 +39,7 @@ public class RSCFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
+        //TODO uncomment one of these to make Push work
         //sendNotification(remoteMessage.getNotification().getBody());
         //sendNotification(remoteMessage.getData().get("SomeKey"));
     }
