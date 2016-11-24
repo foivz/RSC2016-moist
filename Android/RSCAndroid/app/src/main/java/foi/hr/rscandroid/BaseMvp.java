@@ -1,6 +1,7 @@
 package foi.hr.rscandroid;
 
-import android.content.DialogInterface;
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import android.support.annotation.StringRes;
 
 /**
@@ -21,10 +22,10 @@ public interface BaseMvp {
 
         void showMessage(String message);
 
-        void showMessage(String message, DialogInterface.OnClickListener okListener);
+        void showMessage(String message, MaterialDialog.SingleButtonCallback okListener);
 
-        void showMessage(String message, @StringRes int positiveText, DialogInterface.OnClickListener positiveListener,
-                         @StringRes int negativeText, DialogInterface.OnClickListener negativeListener);
+        void showMessage(String message, @StringRes int positiveText, MaterialDialog.SingleButtonCallback positiveListener,
+                         @StringRes int negativeText, MaterialDialog.SingleButtonCallback negativeListener);
     }
 
     // TODO: add base presenter and interactor only if really needed
