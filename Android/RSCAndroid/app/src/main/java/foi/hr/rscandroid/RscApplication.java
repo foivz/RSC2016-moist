@@ -8,10 +8,23 @@ import android.app.Application;
  * @since 24/11/16
  */
 
-public class RscApplication extends Application {
+public class RSCApplication extends Application {
+
+    private static RSCApplication instance;
+
+    public static RSCApplication getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(RSCApplication instance) {
+        RSCApplication.instance = instance;
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        setInstance(this);
     }
+
+
 }
