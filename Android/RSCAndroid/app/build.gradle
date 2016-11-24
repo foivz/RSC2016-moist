@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 25
     buildToolsVersion "24.0.3"
@@ -32,5 +33,9 @@ dependencies {
     compile 'joda-time:joda-time:2.9.6'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+
     compile 'com.google.firebase:firebase-messaging:10.0.0'
 }
+
+//This needs to be on the bottom, Firebase specific
+apply plugin: 'com.google.gms.google-services'
