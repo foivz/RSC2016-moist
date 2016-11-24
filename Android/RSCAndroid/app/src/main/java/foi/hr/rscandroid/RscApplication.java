@@ -1,5 +1,8 @@
 package foi.hr.rscandroid;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import android.app.Application;
 
 /**
@@ -24,7 +27,8 @@ public class RSCApplication extends Application {
     public void onCreate() {
         super.onCreate();
         setInstance(this);
-
+        FacebookSdk.sdkInitialize(this);
+        AppEventsLogger.activateApp(this);
     }
 
 
