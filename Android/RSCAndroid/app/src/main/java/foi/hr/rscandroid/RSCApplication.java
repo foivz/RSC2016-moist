@@ -14,18 +14,18 @@ import foi.hr.rscandroid.data.networking.ApiService;
  * @since 24/11/16
  */
 
-public class RSCCApplication extends Application {
+public class RSCApplication extends Application {
 
-    private static RSCCApplication instance;
+    private static RSCApplication instance;
 
     private static ApiService apiService;
 
-    public static RSCCApplication getInstance() {
+    public static RSCApplication getInstance() {
         return instance;
     }
 
-    public static void setInstance(RSCCApplication instance) {
-        RSCCApplication.instance = instance;
+    public static void setInstance(RSCApplication instance) {
+        RSCApplication.instance = instance;
     }
 
     @Override
