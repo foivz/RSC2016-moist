@@ -4,4 +4,5 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="facebook_app_id">1829184290631001</string>
+    <string name="fb_login_protocol_scheme">fb1829184290631001</string>
 </resources>

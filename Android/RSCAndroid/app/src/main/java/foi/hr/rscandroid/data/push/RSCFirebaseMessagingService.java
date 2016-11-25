@@ -17,6 +17,8 @@ import foi.hr.rscandroid.ui.main.MainActivity;
 
 public class RSCFirebaseMessagingService extends FirebaseMessagingService {
 
+    public static final String DATA_MESSAGE_PREDEFINED_KEY = "response";
+
     public RSCFirebaseMessagingService() {
     }
 
@@ -40,8 +42,8 @@ public class RSCFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         //TODO uncomment one of these to make Push work
-        //sendNotification(remoteMessage.getNotification().getBody());
-        //sendNotification(remoteMessage.getData().get("SomeKey"));
+        sendNotification(remoteMessage.getNotification().getBody());
+        //sendNotification(remoteMessage.getData().get(DATA_MESSAGE_PREDEFINED_KEY));
     }
 
     private void sendNotification(String messageBody) {

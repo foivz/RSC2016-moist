@@ -4,9 +4,12 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
 import android.app.Application;
+import android.content.Intent;
 
 import foi.hr.rscandroid.data.networking.ApiManagerImpl;
 import foi.hr.rscandroid.data.networking.ApiService;
+import foi.hr.rscandroid.data.push.RSCFirebaseInstanceIdService;
+import foi.hr.rscandroid.data.push.RSCFirebaseMessagingService;
 
 /**
  * @author Igor Tepavac
@@ -37,6 +40,9 @@ public class RSCApplication extends Application {
 
         ApiManagerImpl.getInstance().init();
         apiService = ApiManagerImpl.getInstance().getApiService();
+
+        startService(new Intent(this, RSCFirebaseInstanceIdService.class));
+        startService(new Intent(this, RSCFirebaseMessagingService.class));
     }
 
     public static ApiService getApiService() {

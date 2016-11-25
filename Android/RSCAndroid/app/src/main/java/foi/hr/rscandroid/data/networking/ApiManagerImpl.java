@@ -3,6 +3,7 @@ package foi.hr.rscandroid.data.networking;
 
 import foi.hr.rscandroid.BuildConfig;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -23,13 +24,18 @@ public class ApiManagerImpl implements ApiManager {
         return instance;
     }
 
-    public ApiManagerImpl() {
+    private ApiManagerImpl() {
 
     }
 
     public void init() {
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new RequestInterceptor())
+                .addInterceptor(httpLoggingInterceptor)
                 .build();
 
         setup(client);
