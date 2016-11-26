@@ -4,6 +4,7 @@ import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
@@ -16,7 +17,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import butterknife.BindInt;
 import butterknife.BindView;
@@ -29,7 +29,9 @@ import foi.hr.rscandroid.ui.dashboard.map.MapFragment;
 import foi.hr.rscandroid.ui.dashboard.profile.ProfileFragment;
 import foi.hr.rscandroid.ui.dashboard.upcoming.UpcomingFragment;
 import foi.hr.rscandroid.ui.login.LoginActivity;
+import foi.hr.rscandroid.ui.login.LoginPresenter;
 import foi.hr.rscandroid.ui.shared.ColorUtils;
+import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 
 public class DashboardActivity extends BaseActivity {
 
@@ -191,12 +193,29 @@ public class DashboardActivity extends BaseActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.btn_menu_action:
-                Toast.makeText(this, "Menu item clicked", Toast.LENGTH_SHORT).show();
+                switch (tabNumber) {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        signOut();
+                        break;
+                }
                 break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void signOut() {
+        SharedPrefsHelper.clearSingleSharedPrefsItem(LoginPresenter.TOKEN);
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 }
