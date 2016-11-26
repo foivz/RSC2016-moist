@@ -12,5 +12,7 @@
     <color name="tab_events">#607D8B</color>
     <color name="tab_map">#4CAF50</color>
     <color name="tab_profile">#3F51B5</color>
+    <color name="tab_inactive">#E0E0E0</color>
+
     <color name="registrationErrorColor">#ffa8a8</color>
 </resources>

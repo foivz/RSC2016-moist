@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <integer name="color_change_duration">150</integer>
     <integer name="fade_in_duration">150</integer>
     <integer name="fade_out_duration">150</integer>
 </resources>
