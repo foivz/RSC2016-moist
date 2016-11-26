@@ -14,6 +14,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -90,24 +91,28 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
                     tabNumber = TAB_UPCOMING;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null));
                     switchFragment(UpcomingFragment.newInstance(currentColor));
+                    setToolbarVisibile(true);
                     break;
 
                 case R.id.tab_events:
                     tabNumber = TAB_EVENTS;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_events, null));
                     switchFragment(EventsFragment.newInstance(currentColor));
+                    setToolbarVisibile(true);
                     break;
 
                 case R.id.tab_map:
                     tabNumber = TAB_MAP;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_map, null));
                     switchFragment(MapFragment.newInstance(events));
+                    setToolbarVisibile(false);
                     break;
 
                 case R.id.tab_profile:
                     tabNumber = TAB_PROFILE;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_profile, null));
                     switchFragment(ProfileFragment.newInstance(currentColor, user));
+                    setToolbarVisibile(true);
                     break;
 
                 default:
@@ -231,6 +236,14 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setToolbarVisibile(boolean visible) {
+        if (visible) {
+            toolbar.setVisibility(View.VISIBLE);
+        } else {
+            toolbar.setVisibility(View.GONE);
+        }
     }
 
     private void signOut() {
