@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/activity_user_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:context="foi.hr.rscandroid.ui.registration.RegistrationActivity">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/tab_upcoming_darker">
+
+        <TextView
+                android:id="@+id/tv_moar_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="50dp"
+                android:layout_alignParentTop="true"
+                android:textColor="@android:color/white"
+                android:textSize="26sp"
+                android:gravity="center"
+                android:padding="@dimen/default_spacing"
+                android:text="We need some additional information"
+                />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/et_team_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="180dp"
+                android:layout_marginLeft="@dimen/default_spacing"
+                android:layout_marginRight="@dimen/default_spacing"
+                android:hint="Team name"
+                android:textColorHint="@android:color/white"
+                app:met_floatingLabelTextSize="16sp"
+                app:met_textColorHint="@color/dividerColor"
+                app:met_baseColor="@android:color/white"
+                app:met_primaryColor="@android:color/white"
+                app:met_hideUnderline="true"
+                app:met_floatingLabel="highlight"
+                app:met_errorColor="@color/registrationErrorColor"
+                />
+
+        <TextView
+                android:id="@+id/tv_team_name_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_team_name"
+                android:padding="@dimen/default_spacing"
+                android:text="Pick a team name - we will recognize your team by your chosen name"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                />
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/et_max_team_members"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/default_spacing"
+                android:layout_below="@+id/tv_team_name_desc"
+                android:layout_marginTop="30dp"
+                android:inputType="text"
+                android:hint="Number of members"
+                app:met_textColorHint="@color/dividerColor"
+                app:met_baseColor="@android:color/white"
+                app:met_hideUnderline="true"
+                app:met_primaryColor="@android:color/white"
+                app:met_floatingLabel="highlight"
+                app:met_errorColor="@color/registrationErrorColor"
+                />
+
+        <TextView
+                android:id="@+id/tv_team_members_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/et_max_team_members"
+                android:padding="@dimen/default_spacing"
+                android:text="Pick a team size - this is the amount of people that will be able to join your team"
+                android:textSize="16sp"
+                android:textColor="@android:color/white"
+                />
+
+        <Button
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/default_spacing"
+                android:background="@drawable/new_team_button_border"
+                android:textColor="@android:color/white"
+                android:text="Confirm"
+                />
+
+    </RelativeLayout>
+</ScrollView>

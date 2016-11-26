@@ -52,7 +52,13 @@
                 android:theme="@style/RegistrationTheme"
                 android:windowSoftInputMode="adjustResize">
         </activity>
-        <activity android:name=".ui.teams.TeamActivity">
+        <activity
+                android:name=".ui.teams.TeamActivity"
+                android:theme="@style/AppTheme">
+        </activity>
+        <activity android:name=".ui.teams.NewTeamActivity"
+                android:theme="@style/TeamsTheme"
+                android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
 

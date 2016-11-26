@@ -7,4 +7,5 @@
     <string name="fb_login_protocol_scheme">fb1829184290631001</string>
     <string name="team_curr_members_string">Currently in team: %d</string>
     <string name="max_slots_in_team">Allowed slots in a team: %d</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>
