@@ -49,7 +49,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationVi
 
     @Override
     public void proceedToDashboard(User user) {
-
     }
 
     @Override
