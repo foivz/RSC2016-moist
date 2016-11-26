@@ -1,5 +1,6 @@
 package foi.hr.rscandroid.ui.dashboard;
 
+import com.facebook.login.LoginManager;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -213,6 +214,7 @@ public class DashboardActivity extends BaseActivity {
 
     private void signOut() {
         SharedPrefsHelper.clearSingleSharedPrefsItem(LoginPresenter.TOKEN);
+        LoginManager.getInstance().logOut();
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

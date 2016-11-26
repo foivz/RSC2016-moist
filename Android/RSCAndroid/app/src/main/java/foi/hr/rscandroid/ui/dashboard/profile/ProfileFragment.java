@@ -13,13 +13,14 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import foi.hr.rscandroid.R;
-import foi.hr.rscandroid.data.models.User;
 import foi.hr.rscandroid.data.models.UserRequest;
 import foi.hr.rscandroid.ui.BaseFragment;
 import foi.hr.rscandroid.ui.login.LoginActivity;
 
 public class ProfileFragment extends BaseFragment {
 
+
+    public static final String EXTRA_COLOR = "color";
 
     @BindView(R.id.iv_avatar)
     ImageView ivAvatar;
@@ -39,7 +40,7 @@ public class ProfileFragment extends BaseFragment {
 
     public static ProfileFragment newInstance(int color) {
         Bundle args = new Bundle();
-        args.putInt("color", color);
+        args.putInt(EXTRA_COLOR, color);
         ProfileFragment fragment = new ProfileFragment();
         fragment.setArguments(args);
         return fragment;
@@ -47,7 +48,7 @@ public class ProfileFragment extends BaseFragment {
 
     public static ProfileFragment newInstance(int color, UserRequest user) {
         Bundle args = new Bundle();
-        args.putInt("color", color);
+        args.putInt(EXTRA_COLOR, color);
         args.putSerializable(LoginActivity.EXTRA_USER_DATA, user);
         ProfileFragment fragment = new ProfileFragment();
         fragment.setArguments(args);
@@ -59,7 +60,7 @@ public class ProfileFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         ButterKnife.bind(this, view);
-        user = (User) getArguments().getSerializable(LoginActivity.EXTRA_USER_DATA);
+        user = (UserRequest) getArguments().getSerializable(LoginActivity.EXTRA_USER_DATA);
         initUi();
 
         return view;
