@@ -20,6 +20,7 @@ public class Team implements Parcelable {
     @SerializedName("size")
     private long populatedMembers;
 
+
     protected Team(Parcel in) {
         teamName = in.readString();
         teamId = in.readLong();
@@ -83,4 +84,5 @@ public class Team implements Parcelable {
     public void setPopulatedMembers(long populatedMembers) {
         this.populatedMembers = populatedMembers;
     }
+
 }

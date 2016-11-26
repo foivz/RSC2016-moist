@@ -30,8 +30,8 @@
                 android:value="@string/facebook_app_id"/>
 
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_key"/>
+                android:name="com.google.android.geo.API_KEY"
+                android:value="@string/google_key"/>
 
         <activity
                 android:name=".ui.splash.SplashActivity"
@@ -59,9 +59,18 @@
         <activity
                 android:name=".ui.registration.RegistrationActivity"
                 android:theme="@style/RegistrationTheme"
-                android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustResize"/>
-
+                android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity
+                android:name=".ui.teams.TeamActivity"
+                android:theme="@style/AppTheme"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.teams.NewTeamActivity"
+                android:theme="@style/TeamsTheme"
+                android:windowSoftInputMode="adjustResize">
+        </activity>
         <activity
                 android:name=".ui.main.MainActivity"
                 android:screenOrientation="portrait"/>
@@ -70,9 +79,6 @@
                 android:name=".ui.dashboard.DashboardActivity"
                 android:screenOrientation="portrait"/>
 
-        <activity
-                android:name=".ui.teams.TeamActivity"
-                android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
