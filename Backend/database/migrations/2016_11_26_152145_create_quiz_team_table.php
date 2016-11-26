@@ -13,6 +13,7 @@ class CreateQuizTeamTable extends Migration
             $table->foreign('quiz_id')->references('id')->on('quizzes');
             $table->integer('team_id')->unsigned()->nullable()->default(NULL);
             $table->foreign('team_id')->references('id')->on('teams');
+            $table->integer('score')->default(0);
             $table->timestamps();
         });
     }

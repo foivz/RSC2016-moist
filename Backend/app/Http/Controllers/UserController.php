@@ -39,4 +39,30 @@ class UserController extends Controller
 
         return response($ret, Response::HTTP_BAD_REQUEST);
     }
+
+    /**
+     * @Put("/api/users/{id}", as="api.users.update")
+     */
+    public function update(Request $request, $id)
+    {
+        $tokenUser = $request->user();
+        $requestUser = $request->get('request')['user'];
+
+        $rules = ['nickname' => 'unique:users'];
+
+        if (Validator::make($requestUser, $rules)->passes()) {
+            $tokenUser->nickname = $requestUser['nickname'];
+            $tokenUser->save();
+
+            return response("{}", Response::HTTP_OK);
+        }
+
+        $ret['response']['error'] = "Nickname already in use.";
+
+        return response($ret, Response::HTTP_BAD_REQUEST);
+
+        $ret['response']['error'] = "User and token do not match.";
+
+        return response($ret, Response::HTTP_BAD_REQUEST);
+    }
 }

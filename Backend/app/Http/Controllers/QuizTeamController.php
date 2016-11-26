@@ -33,4 +33,15 @@ class QuizTeamController extends Controller
 
         return response($ret, Response::HTTP_BAD_REQUEST);
     }
+
+    /**
+     * @Middleware("auth:api")
+     * @Post("/api/quiz/{quiz_id}/team/{team_id}/answer")
+     */
+    public function answerQuestion(Request $request, $quiz_id, $team_id)
+    {
+        // TODO push
+
+
+    }
 }
