@@ -2,7 +2,9 @@ package foi.hr.rscandroid.data.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     @SerializedName("user")
     private UserData userData;
