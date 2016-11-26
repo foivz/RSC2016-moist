@@ -19,6 +19,7 @@
             app:bb_tabXmlResource="@xml/bottombar_tabs"
             app:bb_inActiveTabColor="@android:color/darker_gray"
             app:bb_activeTabColor="@android:color/white"
-            app:bb_behavior="shifting"/>
+            app:bb_behavior="shifting"
+            app:bb_showShadow="false"/>
 
 </RelativeLayout>

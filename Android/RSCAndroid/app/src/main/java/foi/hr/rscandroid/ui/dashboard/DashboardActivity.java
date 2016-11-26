@@ -78,7 +78,7 @@ public class DashboardActivity extends BaseActivity {
         bottomBar.setOnTabSelectListener(tabSelectListener);
 
         // Initial fragment
-        switchFragment(UpcomingFragment.newInstance());
+        switchFragment(UpcomingFragment.newInstance(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null)));
     }
 
     private void switchFragment(Fragment fragment) {

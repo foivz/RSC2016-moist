@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -14,9 +14,8 @@ import foi.hr.rscandroid.ui.BaseFragment;
 
 public class ProfileFragment extends BaseFragment {
 
-
-    @BindView(R.id.container)
-    RelativeLayout myContainer;
+    @BindView(R.id.dummyText)
+    TextView dummyText;
 
     public static ProfileFragment newInstance() {
         Bundle args = new Bundle();
@@ -38,7 +37,7 @@ public class ProfileFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dummy, container, false);
         ButterKnife.bind(this, view);
-        myContainer.setBackgroundColor(getArguments().getInt("color"));
+        dummyText.setTextColor(getArguments().getInt("color"));
         return view;
     }
 }
