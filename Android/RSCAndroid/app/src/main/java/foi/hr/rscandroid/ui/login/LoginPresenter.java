@@ -34,7 +34,7 @@ public class LoginPresenter {
             if (facebookLoginModel.getUserData().isRegistered()) {
                 view.proceedToMain();
             } else {
-                view.proceedToUserDetails();
+                view.proceedToRegistration();
             }
         }
 
@@ -76,7 +76,7 @@ public class LoginPresenter {
             if (userBaseResponse.getResponse().getUserData().isRegistered()) {
                 view.proceedToMain();
             } else {
-                view.proceedToUserDetails();
+                view.proceedToRegistration();
             }
         }
 

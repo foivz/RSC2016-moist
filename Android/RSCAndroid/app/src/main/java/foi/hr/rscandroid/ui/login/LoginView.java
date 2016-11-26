@@ -11,5 +11,5 @@ public interface LoginView extends BaseMvp.View {
 
     void setPwError(String s);
 
-    void proceedToUserDetails();
+    void proceedToRegistration();
 }

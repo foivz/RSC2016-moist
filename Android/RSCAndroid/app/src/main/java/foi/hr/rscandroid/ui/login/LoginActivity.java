@@ -90,7 +90,7 @@ public class LoginActivity extends BaseActivity implements LoginView, GoogleApiC
     }
 
     @Override
-    public void proceedToUserDetails() {
+    public void proceedToRegistration() {
         startActivity(new Intent(this, RegistrationActivity.class));
     }
 
@@ -132,7 +132,9 @@ public class LoginActivity extends BaseActivity implements LoginView, GoogleApiC
         facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Log.e("FB", loginResult.getAccessToken().getToken());
                 presenter.sendFbAuthToApi(loginResult.getAccessToken().getToken());
+
                 showProgress();
             }
 
@@ -150,7 +152,8 @@ public class LoginActivity extends BaseActivity implements LoginView, GoogleApiC
 
     @OnClick(R.id.btn_login)
     public void normalLoginButtonClicked() {
-        presenter.login(etEmail.getText().toString(), etPassword.getText().toString());
+        //presenter.login(etEmail.getText().toString(), etPassword.getText().toString());
+        proceedToRegistration();
     }
 
     @Override
@@ -163,6 +166,7 @@ public class LoginActivity extends BaseActivity implements LoginView, GoogleApiC
         Log.d("G+SIGNINSTATUS", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();
+            Log.e("GTOKEN", acct.getIdToken());
             presenter.sendGoogleAuthToAPI(acct.getIdToken());
         } else {
             showMessage("Failed to authenticate g+ account");
