@@ -56,6 +56,9 @@ public class ProfileFragment extends BaseFragment {
     @BindView(R.id.confirmation_container)
     LinearLayout confirmationContainer;
 
+    @BindView(R.id.tv_nickname)
+    TextView tvNickname;
+
     private UserRequest user;
 
     public static ProfileFragment newInstance(UserRequest user) {
@@ -115,21 +118,30 @@ public class ProfileFragment extends BaseFragment {
     public void onEditClicked() {
         confirmationContainer.setVisibility(View.VISIBLE);
         ivEdit.setVisibility(View.GONE);
+        tvNickname.setVisibility(View.GONE);
+        tvNicknameData.setVisibility(View.GONE);
+        etNicknameData.setVisibility(View.VISIBLE);
+        etNicknameData.setText(tvNicknameData.getText());
     }
 
     @OnClick(R.id.btn_accept)
     public void onAcceptClicked() {
         ivEdit.setVisibility(View.VISIBLE);
         confirmationContainer.setVisibility(View.GONE);
+        tvNicknameData.setVisibility(View.VISIBLE);
+        tvNickname.setVisibility(View.VISIBLE);
+        tvNicknameData.setText(etNicknameData.getText());
+        etNicknameData.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.btn_decline)
     public void onDeclineClicked() {
         ivEdit.setVisibility(View.VISIBLE);
         confirmationContainer.setVisibility(View.GONE);
+        tvNickname.setVisibility(View.VISIBLE);
+        tvNicknameData.setVisibility(View.VISIBLE);
+        etNicknameData.setVisibility(View.GONE);
     }
-
-
 
 
 }
