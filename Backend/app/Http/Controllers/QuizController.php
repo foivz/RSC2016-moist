@@ -41,8 +41,6 @@ class QuizController extends Controller
      */
     public function create(Request $request)
     {
-        // TODO check if admin
-
         $data = $request->get('request')['quiz'];
 
         $this->saveModel($data, new Quiz);

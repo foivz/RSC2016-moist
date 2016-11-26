@@ -7,9 +7,22 @@ use App\QuizTeam;
 use App\Team;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use sngrl\PhpFirebaseCloudMessaging\Client;
+use sngrl\PhpFirebaseCloudMessaging\Message;
+use sngrl\PhpFirebaseCloudMessaging\Notification;
+use sngrl\PhpFirebaseCloudMessaging\Recipient\Topic;
 
 class QuizTeamController extends Controller
 {
+    private $client;
+
+    public function __construct()
+    {
+        $this->client = new Client();
+        $this->client->setApiKey(env('FIREBASE_ID'));
+        $this->client->injectGuzzleHttpClient(new \GuzzleHttp\Client());
+    }
+
     /**
      * @Middleware("auth:api")
      * @Post("/api/quiz/{quiz_id}/team/{team_id}", as="api.quiz.team.create")
@@ -43,9 +56,7 @@ class QuizTeamController extends Controller
      */
     public function submitAnswer(Request $request, $quiz_id, $team_id)
     {
-        // TODO push
-
-
+        $this->pushNotification($request->get('request')['answer'], $team_id);
     }
 
     /**
@@ -55,8 +66,29 @@ class QuizTeamController extends Controller
      * @Middleware("auth:api")
      * @Post("/api/quiz/{quiz_id}/team/{team_id}/answer/evaluate")
      */
-    public function evaluateAnswer()
+    public function evaluateAnswer(Request $request, $quiz_id, $team_id)
     {
+        $quiz_team = QuizTeam::where('quiz_id', $quiz_id)->where('team_id', $team_id);
+        $quiz_team->score = $quiz_team->score + 10;
+        $quiz_team->save();
 
+        return response("{}", Response::HTTP_OK);
+    }
+
+    private function pushNotification($answer, $team_id)
+    {
+        $message = new Message();
+
+        $message->setPriority('high');
+        $message->addRecipient(new Topic($team_id)); // topic name is team_id
+        $message->setNotification(new Notification('New Answer!', 'Answer: ' . $answer['id']))
+            ->setData(['answer_id' => $answer['id']]);
+
+        $response = $this->client->send($message);
+
+        $ret['response']['status'] = $response->getStatusCode();
+        $ret['response']['body'] = $response->getBody()->getContents();
+
+        return $ret;
     }
 }

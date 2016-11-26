@@ -14,14 +14,6 @@ class UsersSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                "name" => "Stefano Kliba",
-                "nickname" => "skliba",
-                "email" => "rajkov.stefano@gmail.com",
-                "registered" => true,
-                "created_at" => Carbon::now(),
-                "updated_at" => Carbon::now(),
-            ],
-            [
                 "name" => "x x",
                 "nickname" => "x",
                 "email" => "x@foi.hr",

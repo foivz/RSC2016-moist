@@ -17,8 +17,8 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        $tokenUser = $request->user();
-        $requestUser = $request->get('request')['user'];
+        $ret['debug']['tokenuser'] = $tokenUser = $request->user();
+        $ret['debug']['requser'] = $requestUser = $request->get('request')['user'];
 
         $rules = ['nickname' => 'unique:users'];
 
