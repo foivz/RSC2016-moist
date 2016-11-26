@@ -32,7 +32,7 @@ public class LoginPresenter {
             storeTokenToPrefs(userModel.getToken());
             view.hideProgress();
             if (userModel.getUserData().isRegistered() == 1) {
-                view.proceedToMain();
+                view.proceedToMain(userModel);
             } else {
                 view.proceedToRegistration(userModel);
             }
@@ -75,7 +75,7 @@ public class LoginPresenter {
             view.hideProgress();
             storeTokenToPrefs(userBaseResponse.getResponse().getToken());
             if (userBaseResponse.getResponse().getUserData().isRegistered() == 1) {
-                view.proceedToMain();
+                view.proceedToMain(userBaseResponse.getResponse());
             } else {
                 view.proceedToRegistration(userBaseResponse.getResponse());
             }
