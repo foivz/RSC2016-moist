@@ -27,6 +27,7 @@ class AuthController extends Controller
         $userData = [
             "name" => $socialUser->name,
             "email" => $socialUser->email,
+            "avatar" => $driver !== "google" ? $socialUser->avatar : $socialUser->picture,
         ];
 
         $user = User::firstOrCreate($userData);

@@ -1,3 +1,5 @@
+/storage/oauth-private.key
+/storage/oauth-public.key
 /node_modules
 /public/storage
 /vendor
