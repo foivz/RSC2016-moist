@@ -32,7 +32,6 @@ public class ApiManagerImpl implements ApiManager {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new RequestInterceptor())
                 .addInterceptor(httpLoggingInterceptor)

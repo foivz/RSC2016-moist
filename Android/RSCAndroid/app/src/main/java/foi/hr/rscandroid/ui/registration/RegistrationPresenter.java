@@ -5,7 +5,9 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import foi.hr.rscandroid.data.interactors.RegistrationInteractor;
+import foi.hr.rscandroid.data.models.BaseRequest;
 import foi.hr.rscandroid.data.models.User;
+import foi.hr.rscandroid.data.models.UserRequest;
 import foi.hr.rscandroid.ui.shared.Listener;
 
 public class RegistrationPresenter {
@@ -14,7 +16,7 @@ public class RegistrationPresenter {
 
     private RegistrationInteractor interactor;
 
-    private User user;
+    private UserRequest user;
 
     public RegistrationPresenter(RegistrationView view, RegistrationInteractor interactor) {
         this.view = view;
@@ -22,14 +24,17 @@ public class RegistrationPresenter {
     }
 
     public void initModels(User user) {
-        this.user = user;
+        this.user = new UserRequest();
+        this.user.setUserData(user.getUserData());
     }
 
     public void sendNickname(String nickname) {
         view.showProgress();
         if (!TextUtils.isEmpty(nickname) && user != null) {
             user.getUserData().setNickname(nickname);
-            interactor.sendNickname(user, nicknameListener);
+            BaseRequest<UserRequest> br = new BaseRequest<>();
+            br.setRequest(user);
+            interactor.sendNickname(br, nicknameListener);
         } else {
             view.hideProgress();
             view.showEmptyNicknameError();
