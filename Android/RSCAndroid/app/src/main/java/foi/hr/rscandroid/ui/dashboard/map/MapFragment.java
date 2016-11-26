@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.Event;
 import foi.hr.rscandroid.ui.PermissionFragment;
+import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 
 public class MapFragment extends PermissionFragment implements OnMapReadyCallback {
 
@@ -136,14 +137,15 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
                 }
             }
         });
-        if (hasPermissions(PERMISSIONS) && !eventsShown) {
+        if (hasPermissions(PERMISSIONS)) {
             initUsersLocation();
-            showEventLocations();
+            if (!eventsShown) {
+                showEventLocations();
+            }
         }
     }
 
     private void showEventLocations() {
-        googleMap.clear();
         eventsShown = true;
         for (Event event : events) {
             showEventLocation(event);
@@ -163,6 +165,9 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
             googleMap.setMyLocationEnabled(true);
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ANIMATION_SPEED));
+            googleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         }
     }
 
@@ -171,8 +176,8 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
             @Override
             public void onLocationRetrieved(Location location) {
                 if (location != null) {
-//                    SharedPrefsHelper.setSharedPrefsString(SharedPrefsHelper.KEY_LAT, String.valueOf(location.getLatitude()));
-//                    SharedPrefsHelper.setSharedPrefsString(SharedPrefsHelper.KEY_LNG, String.valueOf(location.getLongitude()));
+                    SharedPrefsHelper.setSharedPrefsString(SharedPrefsHelper.KEY_LAT, String.valueOf(location.getLatitude()));
+                    SharedPrefsHelper.setSharedPrefsString(SharedPrefsHelper.KEY_LNG, String.valueOf(location.getLongitude()));
                     showCurrentLocation(location);
                 }
             }
