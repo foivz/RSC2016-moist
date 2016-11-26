@@ -13,5 +13,6 @@
     <dimen name="larger_spacing">20dp</dimen>
     <dimen name="large_spacing">24dp</dimen>
     <dimen name="xlarge_spacing">36dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>

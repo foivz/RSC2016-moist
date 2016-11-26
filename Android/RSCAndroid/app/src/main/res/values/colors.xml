@@ -9,6 +9,8 @@
     <color name="colorAccent">#009688</color>
 
     <color name="tab_upcoming">#F44336</color>
+    <color name="tab_upcoming_darker">#a6220e</color>
+    <color name="tab_upcoming_even_darker">#801a0b</color>
     <color name="tab_events">#607D8B</color>
     <color name="tab_map">#4CAF50</color>
     <color name="tab_profile">#3F51B5</color>
