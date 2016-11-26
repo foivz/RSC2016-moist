@@ -66,8 +66,13 @@ public class CurrentLocationUtil implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Location lastKnownLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-        listener.onLocationRetrieved(lastKnownLocation);
-        disconnect();
+        if (lastKnownLocation == null) {
+            disconnect();
+            connect();
+        } else {
+            listener.onLocationRetrieved(lastKnownLocation);
+            disconnect();
+        }
     }
 
     @Override

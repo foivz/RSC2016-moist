@@ -7,6 +7,10 @@ import foi.hr.rscandroid.RSCApplication;
 
 public class SharedPrefsHelper {
 
+    public static final String KEY_LAT = "lat";
+
+    public static final String KEY_LNG = "lan";
+
     public static String getSharedPrefsString(String key) {
         return PreferenceManager.getDefaultSharedPreferences(RSCApplication.getInstance()).getString(key, "");
     }

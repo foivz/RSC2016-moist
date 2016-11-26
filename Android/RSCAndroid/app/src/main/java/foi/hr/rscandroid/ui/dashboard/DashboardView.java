@@ -8,4 +8,6 @@ import foi.hr.rscandroid.ui.BaseMvp;
 public interface DashboardView extends BaseMvp.View {
 
     void onEventsReceived(ArrayList<Event> events);
+
+    void fetchCurrentLocation();
 }

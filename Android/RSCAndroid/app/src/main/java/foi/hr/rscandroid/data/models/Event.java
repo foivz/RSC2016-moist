@@ -12,6 +12,8 @@ import java.util.List;
 
 public class Event implements Parcelable {
 
+    public static final float INVALID_DISTANCE = -1.0f;
+
     @SerializedName("id")
     private long id;
 
@@ -42,6 +44,8 @@ public class Event implements Parcelable {
     @SerializedName("teams")
     private List<Team> teams;
 
+    private transient float distanceFromCurrentLocation = INVALID_DISTANCE;
+
     public Event() {
     }
 
@@ -56,6 +60,7 @@ public class Event implements Parcelable {
         description = in.readString();
         prizes = in.readString();
         teams = in.createTypedArrayList(Team.CREATOR);
+        distanceFromCurrentLocation = in.readFloat();
     }
 
     @Override
@@ -69,6 +74,7 @@ public class Event implements Parcelable {
         dest.writeString(description);
         dest.writeString(prizes);
         dest.writeTypedList(teams);
+        dest.writeFloat(distanceFromCurrentLocation);
     }
 
     @Override
@@ -166,5 +172,13 @@ public class Event implements Parcelable {
 
     public void setTeams(List<Team> teams) {
         this.teams = teams;
+    }
+
+    public float getDistanceFromCurrentLocation() {
+        return distanceFromCurrentLocation;
+    }
+
+    public void setDistanceFromCurrentLocation(float distanceFromCurrentLocation) {
+        this.distanceFromCurrentLocation = distanceFromCurrentLocation;
     }
 }
