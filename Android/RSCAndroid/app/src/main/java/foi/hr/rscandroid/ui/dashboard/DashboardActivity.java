@@ -95,14 +95,14 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
                 case R.id.tab_upcoming:
                     tabNumber = TAB_UPCOMING;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null));
-                    switchFragment(UpcomingFragment.newInstance(currentColor));
+                    switchFragment(EventsFragment.newInstance(currentColor, R.color.tab_map, R.string.empty_upcoming, null));
                     setToolbarVisibile(true);
                     break;
 
                 case R.id.tab_events:
                     tabNumber = TAB_EVENTS;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_events, null));
-                    switchFragment(EventsFragment.newInstance(currentColor, events));
+                    switchFragment(EventsFragment.newInstance(currentColor, R.color.tab_upcoming, R.string.empty_events, events));
                     setToolbarVisibile(true);
                     break;
 
@@ -170,7 +170,8 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
         initWindow();
 
         // Initial fragment
-        switchFragment(UpcomingFragment.newInstance(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null)));
+        setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null));
+        switchFragment(EventsFragment.newInstance(currentColor, R.color.tab_map, R.string.empty_upcoming, null));
     }
 
     private void switchFragment(Fragment fragment) {

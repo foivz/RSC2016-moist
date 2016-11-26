@@ -1,6 +1,8 @@
 package foi.hr.rscandroid.ui.dashboard.events;
 
 import android.content.Context;
+import android.support.annotation.ColorRes;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -31,11 +33,15 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     private long currentUserId;
 
+    @ColorRes
+    private int decoratorColor;
+
     private List<Event> events;
 
-    public EventsAdapter(Context context, long currentUserId, List<Event> events) {
+    public EventsAdapter(Context context, long currentUserId, @ColorRes int decoratorColor, List<Event> events) {
         this.context = context;
         this.currentUserId = currentUserId;
+        this.decoratorColor = decoratorColor;
         this.events = events;
     }
 
@@ -73,6 +79,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             holder.distance.setVisibility(View.GONE);
         }
 
+        holder.moderatorFlag.setTextColor(ResourcesCompat.getColor(context.getResources(), decoratorColor, null));
         holder.moderatorFlag.setVisibility(currentUserId == event.getModeratorId() ? View.VISIBLE : View.GONE);
     }
 

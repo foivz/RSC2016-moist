@@ -14,4 +14,7 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="location_rationale">To view available quizzes near you, the app needs your permission to access your location.</string>
     <string name="your_location">Your location</string>
+
+    <string name="empty_events">Unfortunately there are no events available at the moment.</string>
+    <string name="empty_upcoming">You have no upcoming events.\nJoin an event with your team!</string>
 </resources>
