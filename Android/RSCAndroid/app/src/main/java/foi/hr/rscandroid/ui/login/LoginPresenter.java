@@ -4,7 +4,8 @@ package foi.hr.rscandroid.ui.login;
 import android.text.TextUtils;
 
 import foi.hr.rscandroid.data.interactors.LoginInteractor;
-import foi.hr.rscandroid.data.models.FacebookLoginModel;
+import foi.hr.rscandroid.data.models.BaseResponse;
+import foi.hr.rscandroid.data.models.User;
 import foi.hr.rscandroid.ui.shared.Listener;
 import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 
@@ -25,12 +26,16 @@ public class LoginPresenter {
         interactor.authorizeFb(token, facebookLoginListener);
     }
 
-    private Listener<FacebookLoginModel> facebookLoginListener = new Listener<FacebookLoginModel>() {
+    private Listener<User> facebookLoginListener = new Listener<User>() {
         @Override
-        public void onSuccess(FacebookLoginModel facebookLoginModel) {
+        public void onSuccess(User facebookLoginModel) {
             storeTokenToPrefs(facebookLoginModel.getToken());
             view.hideProgress();
-            view.proceedToMain();
+            if (facebookLoginModel.getUserData().isRegistered()) {
+                view.proceedToMain();
+            } else {
+                view.proceedToUserDetails();
+            }
         }
 
         @Override
@@ -55,7 +60,30 @@ public class LoginPresenter {
             return;
         }
 
-        //TODO callback
+        view.showProgress();
         interactor.loginNormally(email, pw);
     }
+
+    public void sendGoogleAuthToAPI(String idToken) {
+        view.showProgress();
+        interactor.loginGoogle(idToken, googleLoginListener);
+    }
+
+    private Listener<BaseResponse<User>> googleLoginListener = new Listener<BaseResponse<User>>() {
+        @Override
+        public void onSuccess(BaseResponse<User> userBaseResponse) {
+            view.hideProgress();
+            if (userBaseResponse.getResponse().getUserData().isRegistered()) {
+                view.proceedToMain();
+            } else {
+                view.proceedToUserDetails();
+            }
+        }
+
+        @Override
+        public void onError(String error) {
+            view.hideProgress();
+            view.showMessage(error);
+        }
+    };
 }

@@ -10,4 +10,6 @@ public interface LoginView extends BaseMvp.View {
     void setEmailError(String s);
 
     void setPwError(String s);
+
+    void proceedToUserDetails();
 }

@@ -13,6 +13,9 @@ public class UserData {
     @SerializedName("email")
     private String email;
 
+    @SerializedName("isRegistered")
+    private boolean isRegistered;
+
     public int getId() {
         return id;
     }
@@ -37,4 +40,11 @@ public class UserData {
         this.email = email;
     }
 
+    public boolean isRegistered() {
+        return isRegistered;
+    }
+
+    public void setRegistered(boolean registered) {
+        isRegistered = registered;
+    }
 }
