@@ -61,6 +61,19 @@ class QuizTableSeeder extends Seeder
                 "created_at" => Carbon::now(),
                 "updated_at" => Carbon::now()
             ],
+            [
+                "moderator_id" => 1,
+                "name" => "Vindija Quizzzz #2 JAKO JAKO DUGACKO IME DA SE TESTIRA LOM APLIKACIJE KAPPA KAPPA xd xd LUL FOTM",
+                "latitude" => 46.311331,
+                "longitude" => 16.347139,
+                "date" => "2016-11-27",
+                "time" => "14:22:00",
+                "description" => "alkfhalkfh lkadflkh alkdhf lknadfhlkna dflkhnalkn",
+                "prizes" => "sdfokhsdlkfhnsdlkfnhlskdfnhlsd",
+                "rules" => "askhdfglaskhfgsalfksnlg",
+                "created_at" => Carbon::now(),
+                "updated_at" => Carbon::now()
+            ],
         ]);
     }
 }

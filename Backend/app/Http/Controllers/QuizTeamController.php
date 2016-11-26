@@ -35,13 +35,28 @@ class QuizTeamController extends Controller
     }
 
     /**
+     * Store curr answer in table....this value will be stored as
+     * their final answer when times up!
+     *
      * @Middleware("auth:api")
-     * @Post("/api/quiz/{quiz_id}/team/{team_id}/answer")
+     * @Post("/api/quiz/{quiz_id}/team/{team_id}/answer/submit")
      */
-    public function answerQuestion(Request $request, $quiz_id, $team_id)
+    public function submitAnswer(Request $request, $quiz_id, $team_id)
     {
         // TODO push
 
+
+    }
+
+    /**
+     * Triggered when time is up (called by client device)
+     * Actually scores the answer....
+     *
+     * @Middleware("auth:api")
+     * @Post("/api/quiz/{quiz_id}/team/{team_id}/answer/evaluate")
+     */
+    public function evaluateAnswer()
+    {
 
     }
 }
