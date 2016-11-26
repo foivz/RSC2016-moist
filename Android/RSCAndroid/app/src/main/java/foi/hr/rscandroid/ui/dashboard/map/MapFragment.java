@@ -148,6 +148,7 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
         for (Event event : events) {
             showEventLocation(event);
         }
+        googleMap.setInfoWindowAdapter(new InfoAdapter(getContext(), events));
     }
 
     private void showDefaultLocationMarker() {
@@ -173,7 +174,7 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
     }
 
     private void showEventLocation(Event event) {
-        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker);
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker_small);
         googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(event.getLatitude(), event.getLongitude()))
                 .title(event.getName())
