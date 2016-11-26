@@ -7,8 +7,10 @@ import org.joda.time.DateTime;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
 
-public class Quiz implements Parcelable {
+
+public class Event implements Parcelable {
 
     @SerializedName("id")
     private long id;
@@ -37,10 +39,14 @@ public class Quiz implements Parcelable {
     @SerializedName("prizes")
     private String prizes;
 
-    public Quiz() {
+    @SerializedName("teams")
+    private List<Team> teams;
+
+    public Event() {
     }
 
-    protected Quiz(Parcel in) {
+
+    protected Event(Parcel in) {
         id = in.readLong();
         moderatorId = in.readLong();
         name = in.readString();
@@ -49,6 +55,7 @@ public class Quiz implements Parcelable {
         time = in.readString();
         description = in.readString();
         prizes = in.readString();
+        teams = in.createTypedArrayList(Team.CREATOR);
     }
 
     @Override
@@ -61,6 +68,7 @@ public class Quiz implements Parcelable {
         dest.writeString(time);
         dest.writeString(description);
         dest.writeString(prizes);
+        dest.writeTypedList(teams);
     }
 
     @Override
@@ -68,15 +76,15 @@ public class Quiz implements Parcelable {
         return 0;
     }
 
-    public static final Creator<Quiz> CREATOR = new Creator<Quiz>() {
+    public static final Creator<Event> CREATOR = new Creator<Event>() {
         @Override
-        public Quiz createFromParcel(Parcel in) {
-            return new Quiz(in);
+        public Event createFromParcel(Parcel in) {
+            return new Event(in);
         }
 
         @Override
-        public Quiz[] newArray(int size) {
-            return new Quiz[size];
+        public Event[] newArray(int size) {
+            return new Event[size];
         }
     };
 
@@ -150,5 +158,13 @@ public class Quiz implements Parcelable {
 
     public void setPrizes(String prizes) {
         this.prizes = prizes;
+    }
+
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
     }
 }

@@ -19,10 +19,13 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
+
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import foi.hr.rscandroid.R;
+import foi.hr.rscandroid.data.models.Event;
 import foi.hr.rscandroid.data.models.UserRequest;
 import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.dashboard.events.EventsFragment;
@@ -32,9 +35,10 @@ import foi.hr.rscandroid.ui.dashboard.upcoming.UpcomingFragment;
 import foi.hr.rscandroid.ui.login.LoginActivity;
 import foi.hr.rscandroid.ui.login.LoginPresenter;
 import foi.hr.rscandroid.ui.shared.ColorUtils;
+import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
 import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 
-public class DashboardActivity extends BaseActivity {
+public class DashboardActivity extends BaseActivity implements DashboardView {
 
     public static final int TAB_PROFILE = 3;
 
@@ -56,6 +60,8 @@ public class DashboardActivity extends BaseActivity {
     @BindInt(R.integer.color_change_duration)
     int colorChangeDuration;
 
+    private DashboardPresenter presenter;
+
     private int currentColor;
 
     private UpcomingFragment upcomingFragment;
@@ -71,6 +77,8 @@ public class DashboardActivity extends BaseActivity {
     private ImageButton menuButton;
 
     private int tabNumber = 0;
+
+    private ArrayList<Event> events;
 
     private OnTabSelectListener tabSelectListener = new OnTabSelectListener() {
         @Override
@@ -93,7 +101,7 @@ public class DashboardActivity extends BaseActivity {
                 case R.id.tab_map:
                     tabNumber = TAB_MAP;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_map, null));
-                    switchFragment(MapFragment.newInstance());
+                    switchFragment(MapFragment.newInstance(events));
                     break;
 
                 case R.id.tab_profile:
@@ -124,10 +132,15 @@ public class DashboardActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
         bindDataFromIntent();
+
         initFragments();
         initUi();
+
+        presenter = MvpFactoryUtil.getPresenter(this);
+        presenter.init();
     }
 
     private void bindDataFromIntent() {
@@ -228,4 +241,8 @@ public class DashboardActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onEventsReceived(ArrayList<Event> events) {
+        this.events = events;
+    }
 }

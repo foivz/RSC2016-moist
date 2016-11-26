@@ -5,7 +5,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -20,9 +23,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import foi.hr.rscandroid.R;
+import foi.hr.rscandroid.data.models.Event;
 import foi.hr.rscandroid.ui.PermissionFragment;
 
 public class MapFragment extends PermissionFragment implements OnMapReadyCallback {
@@ -35,13 +41,20 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
 
     private static final float ANIMATION_SPEED = 16.0f;
 
+    public static final String EXTRA_EVENTS = "events";
+
     @BindView(R.id.mapView)
     MapView mapView;
 
     private GoogleMap googleMap;
 
-    public static MapFragment newInstance() {
+    private ArrayList<Event> events;
+
+    private boolean eventsShown;
+
+    public static MapFragment newInstance(ArrayList<Event> events) {
         Bundle args = new Bundle();
+        args.putParcelableArrayList(EXTRA_EVENTS, events);
         MapFragment fragment = new MapFragment();
         fragment.setArguments(args);
         return fragment;
@@ -52,6 +65,8 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         ButterKnife.bind(this, view);
+
+        events = getArguments().getParcelableArrayList(EXTRA_EVENTS);
 
         mapView.onCreate(savedInstanceState);
         initUi();
@@ -82,14 +97,16 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
 
     @Override
     protected void onPermissionsGranted() {
-        initUsersLocation();
-        fetchLocations();
+        if (googleMap != null) {
+            initUsersLocation();
+            showEventLocations();
+        }
     }
 
     @Override
     protected void onPermissionsDenied(String[] permissions, int[] grantResults) {
         showDefaultLocationMarker();
-        fetchLocations();
+        showEventLocations();
     }
 
     private void initUi() {
@@ -110,13 +127,27 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
 
-        if (hasPermissions(PERMISSIONS)) {
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                // TODO: navigate to details
+                if (marker.getSnippet() != null) {
+                    long id = Long.parseLong(marker.getSnippet());
+                }
+            }
+        });
+        if (hasPermissions(PERMISSIONS) && !eventsShown) {
             initUsersLocation();
+            showEventLocations();
         }
     }
 
-    private void fetchLocations() {
-
+    private void showEventLocations() {
+        googleMap.clear();
+        eventsShown = true;
+        for (Event event : events) {
+            showEventLocation(event);
+        }
     }
 
     private void showDefaultLocationMarker() {
@@ -141,13 +172,13 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
         });
     }
 
-    private void showQuizLocations() {
-//        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_question);
-//        googleMap.addMarker(new MarkerOptions()
-//                .position()
-//                .title()
-//                .icon(bitmap)
-//                .snippet());
+    private void showEventLocation(Event event) {
+        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_marker);
+        googleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(event.getLatitude(), event.getLongitude()))
+                .title(event.getName())
+                .icon(bitmap)
+                .snippet(String.valueOf(event.getId())));
     }
 
     @Override
