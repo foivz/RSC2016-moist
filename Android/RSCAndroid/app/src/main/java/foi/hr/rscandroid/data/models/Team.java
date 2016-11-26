@@ -3,7 +3,9 @@ package foi.hr.rscandroid.data.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Team {
+import java.io.Serializable;
+
+public class Team implements Serializable {
 
     @SerializedName("name")
     private String teamName;
@@ -16,6 +18,7 @@ public class Team {
 
     @SerializedName("size")
     private long populatedMembers;
+
 
     public String getTeamName() {
         return teamName;
@@ -48,4 +51,5 @@ public class Team {
     public void setPopulatedMembers(long populatedMembers) {
         this.populatedMembers = populatedMembers;
     }
+
 }

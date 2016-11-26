@@ -25,6 +25,8 @@ public class ProfileFragment extends BaseFragment {
 
     public static final String EXTRA_COLOR = "color";
 
+    public static final String EXTRA_TEAMS = "EXTRA_TEAMS";
+
     @BindView(R.id.iv_avatar)
     ImageView ivAvatar;
 
@@ -82,7 +84,7 @@ public class ProfileFragment extends BaseFragment {
     @OnClick(R.id.btn_view_teams)
     public void viewTeamsBtnClicked() {
         Intent intent = new Intent(getBaseActivity(), TeamActivity.class);
-        intent.putExtra("EXTRA_TEAMS", user.getUserData().getTeams());
+        intent.putExtra(EXTRA_TEAMS, user.getUserData().getTeams());
         startActivity(intent);
     }
 
