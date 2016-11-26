@@ -29,9 +29,10 @@
     <RelativeLayout
             android:id="@+id/name_container"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_below="@+id/tv_name"
             android:layout_marginTop="30dp"
+            android:gravity="center_vertical"
             android:layout_marginLeft="@dimen/default_spacing"
             android:layout_marginRight="@dimen/default_spacing"
             android:orientation="horizontal">
@@ -41,9 +42,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="40dp"
                 android:layout_marginRight="15dp"
                 android:textSize="18sp"
+                android:visibility="visible"
                 android:text="Nickname:"
                 />
 
@@ -52,9 +53,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/tv_nickname"
-                android:layout_marginTop="@dimen/default_spacing"
                 android:textSize="18sp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:text="Noxqs"
                 />
 
@@ -81,11 +81,10 @@
 
         <ImageView
                 android:id="@+id/iv_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/ic_mode_edit_black_24dp"
-                android:paddingTop="@dimen/default_spacing"
                 />
 
         <LinearLayout
@@ -100,14 +99,14 @@
                     android:id="@+id/btn_accept"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginRight="16dp"
                     android:src="@drawable/ic_confirm"
                     />
 
             <ImageView
                     android:id="@+id/btn_decline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:src="@drawable/ic_canceled"
                     />
 
@@ -122,7 +121,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/name_container"
-            android:layout_marginTop="30dp"
             android:layout_marginLeft="@dimen/default_spacing"
             android:orientation="horizontal">
 
