@@ -161,9 +161,9 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
     private void showCurrentLocation(@NonNull Location location) {
         if (googleMap != null) {
             googleMap.setMyLocationEnabled(true);
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ANIMATION_SPEED));
         }
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ANIMATION_SPEED));
     }
 
     private void fetchCurrentLocation() {
