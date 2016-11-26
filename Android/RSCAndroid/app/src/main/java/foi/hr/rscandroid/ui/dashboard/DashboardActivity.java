@@ -36,6 +36,14 @@ import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 
 public class DashboardActivity extends BaseActivity {
 
+    public static final int TAB_PROFILE = 3;
+
+    public static final int TAB_MAP = 2;
+
+    public static final int TAB_EVENTS = 1;
+
+    public static final int TAB_UPCOMING = 0;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -71,25 +79,25 @@ public class DashboardActivity extends BaseActivity {
             invalidateOptionsMenu();
             switch (tabId) {
                 case R.id.tab_upcoming:
-                    tabNumber = 0;
+                    tabNumber = TAB_UPCOMING;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null));
                     switchFragment(UpcomingFragment.newInstance(currentColor));
                     break;
 
                 case R.id.tab_events:
-                    tabNumber = 1;
+                    tabNumber = TAB_EVENTS;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_events, null));
                     switchFragment(EventsFragment.newInstance(currentColor));
                     break;
 
                 case R.id.tab_map:
-                    tabNumber = 2;
+                    tabNumber = TAB_MAP;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_map, null));
                     switchFragment(MapFragment.newInstance());
                     break;
 
                 case R.id.tab_profile:
-                    tabNumber = 3;
+                    tabNumber = TAB_PROFILE;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_profile, null));
                     switchFragment(ProfileFragment.newInstance(currentColor, user));
                     break;
@@ -178,12 +186,12 @@ public class DashboardActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         //TODO Add more icons
         switch (tabNumber) {
-            case 3:
+            case TAB_PROFILE:
                 getMenuInflater().inflate(R.menu.menu_profile, menu);
                 return true;
-            case 0:
-            case 1:
-            case 2:
+            case TAB_UPCOMING:
+            case TAB_EVENTS:
+            case TAB_MAP:
             default:
                 return super.onCreateOptionsMenu(menu);
         }
@@ -195,13 +203,13 @@ public class DashboardActivity extends BaseActivity {
         switch (id) {
             case R.id.btn_menu_action:
                 switch (tabNumber) {
-                    case 0:
+                    case TAB_UPCOMING:
                         break;
-                    case 1:
+                    case TAB_EVENTS:
                         break;
-                    case 2:
+                    case TAB_MAP:
                         break;
-                    case 3:
+                    case TAB_PROFILE:
                         signOut();
                         break;
                 }

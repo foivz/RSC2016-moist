@@ -141,6 +141,15 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
         });
     }
 
+    private void showQuizLocations() {
+//        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_question);
+//        googleMap.addMarker(new MarkerOptions()
+//                .position()
+//                .title()
+//                .icon(bitmap)
+//                .snippet());
+    }
+
     @Override
     public void onResume() {
         super.onResume();
