@@ -94,15 +94,17 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
             switch (tabId) {
                 case R.id.tab_upcoming:
                     tabNumber = TAB_UPCOMING;
-                    setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null));
-                    switchFragment(EventsFragment.newInstance(currentColor, R.color.tab_map, R.string.empty_upcoming, null));
+                    setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.colorAccent, null));
+                    switchFragment(EventsFragment.newInstance(currentColor, R.drawable.ic_question_teal, R.color.tab_map,
+                            R.string.empty_upcoming, null));
                     setToolbarVisibile(true);
                     break;
 
                 case R.id.tab_events:
                     tabNumber = TAB_EVENTS;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_events, null));
-                    switchFragment(EventsFragment.newInstance(currentColor, R.color.tab_upcoming, R.string.empty_events, events));
+                    switchFragment(EventsFragment.newInstance(currentColor, R.drawable.ic_question_red, R.color.tab_upcoming,
+                            R.string.empty_events, events));
                     setToolbarVisibile(true);
                     break;
 
@@ -171,7 +173,8 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
 
         // Initial fragment
         setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null));
-        switchFragment(EventsFragment.newInstance(currentColor, R.color.tab_map, R.string.empty_upcoming, null));
+        switchFragment(EventsFragment.newInstance(currentColor, R.drawable.ic_question_teal, R.color.tab_map,
+                R.string.empty_upcoming, null));
     }
 
     private void switchFragment(Fragment fragment) {

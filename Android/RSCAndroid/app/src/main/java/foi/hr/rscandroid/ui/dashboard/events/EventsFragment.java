@@ -3,6 +3,7 @@ package foi.hr.rscandroid.ui.dashboard.events;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.content.res.ResourcesCompat;
@@ -31,6 +32,7 @@ public class EventsFragment extends BaseFragment {
 
     public static final String EXTRA_DECORATOR = "decorator";
 
+    public static final String EXTRA_ICON = "icon";
     @BindView(R.id.eventList)
     RecyclerView eventList;
 
@@ -44,10 +46,12 @@ public class EventsFragment extends BaseFragment {
         return fragment;
     }
 
-    public static EventsFragment newInstance(@ColorInt int color, @ColorRes int decoratorColor,
-                                             @StringRes int emptyTextId, ArrayList<Event> events) {
+    public static EventsFragment newInstance(@ColorInt int color, @DrawableRes int iconRes,
+                                             @ColorRes int decoratorColor, @StringRes int emptyTextId,
+                                             ArrayList<Event> events) {
         Bundle args = new Bundle();
         args.putInt(EXTRA_COLOR, color);
+        args.putInt(EXTRA_ICON, iconRes);
         args.putInt(EXTRA_DECORATOR, decoratorColor);
         args.putInt(EXTRA_EMPTY, emptyTextId);
         args.putParcelableArrayList(EXTRA_EVENTS, events);
@@ -66,6 +70,7 @@ public class EventsFragment extends BaseFragment {
     }
 
     private void initUi() {
+        int iconRes = getArguments().getInt(EXTRA_ICON);
         int decoratorColor = getArguments().getInt(EXTRA_DECORATOR);
         emptyView.setText(getArguments().getInt(EXTRA_EMPTY));
         emptyView.setTextColor(ResourcesCompat.getColor(getContext().getResources(), decoratorColor, null));
@@ -74,7 +79,7 @@ public class EventsFragment extends BaseFragment {
 
         ArrayList<Event> events = getArguments().getParcelableArrayList(EXTRA_EVENTS);
         if (events != null && events.size() > 0) {
-            eventList.setAdapter(new EventsAdapter(getContext(), decoratorColor, events));
+            eventList.setAdapter(new EventsAdapter(getContext(), iconRes, decoratorColor, events));
         } else {
             emptyView.setVisibility(View.VISIBLE);
         }
