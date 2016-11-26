@@ -4,17 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
-
-    @SerializedName("user")
-    private UserData userData;
+public class User extends UserRequest implements Serializable {
 
     @SerializedName("token")
     private String token;
-
-    public UserData getUserData() {
-        return userData;
-    }
 
     public String getToken() {
         return token;
@@ -24,7 +17,4 @@ public class User implements Serializable {
         this.token = token;
     }
 
-    public void setUserData(UserData userData) {
-        this.userData = userData;
-    }
 }

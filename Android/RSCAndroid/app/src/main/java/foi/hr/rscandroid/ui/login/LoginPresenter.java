@@ -73,6 +73,7 @@ public class LoginPresenter {
         @Override
         public void onSuccess(BaseResponse<User> userBaseResponse) {
             view.hideProgress();
+            storeTokenToPrefs(userBaseResponse.getResponse().getToken());
             if (userBaseResponse.getResponse().getUserData().isRegistered()) {
                 view.proceedToMain();
             } else {
