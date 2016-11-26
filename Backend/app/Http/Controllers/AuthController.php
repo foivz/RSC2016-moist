@@ -27,7 +27,6 @@ class AuthController extends Controller
         $userData = [
             "name" => $socialUser->name,
             "email" => $socialUser->email,
-            "registered" => false
         ];
 
         $user = User::firstOrCreate($userData);
