@@ -46,6 +46,8 @@ public class Event implements Parcelable {
 
     private transient float distanceFromCurrentLocation = INVALID_DISTANCE;
 
+    private transient boolean userModerator = false;
+
     public Event() {
     }
 
@@ -61,6 +63,7 @@ public class Event implements Parcelable {
         prizes = in.readString();
         teams = in.createTypedArrayList(Team.CREATOR);
         distanceFromCurrentLocation = in.readFloat();
+        userModerator = in.readInt() == 1;
     }
 
     @Override
@@ -75,6 +78,7 @@ public class Event implements Parcelable {
         dest.writeString(prizes);
         dest.writeTypedList(teams);
         dest.writeFloat(distanceFromCurrentLocation);
+        dest.writeInt(userModerator ? 1 : 0);
     }
 
     @Override
@@ -180,5 +184,13 @@ public class Event implements Parcelable {
 
     public void setDistanceFromCurrentLocation(float distanceFromCurrentLocation) {
         this.distanceFromCurrentLocation = distanceFromCurrentLocation;
+    }
+
+    public boolean isUserModerator() {
+        return userModerator;
+    }
+
+    public void setUserModerator(boolean moderator) {
+        this.userModerator = moderator;
     }
 }

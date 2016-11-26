@@ -31,16 +31,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     private Context context;
 
-    private long currentUserId;
-
     @ColorRes
     private int decoratorColor;
 
     private List<Event> events;
 
-    public EventsAdapter(Context context, long currentUserId, @ColorRes int decoratorColor, List<Event> events) {
+    public EventsAdapter(Context context, @ColorRes int decoratorColor, List<Event> events) {
         this.context = context;
-        this.currentUserId = currentUserId;
         this.decoratorColor = decoratorColor;
         this.events = events;
     }
@@ -80,7 +77,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         }
 
         holder.moderatorFlag.setTextColor(ResourcesCompat.getColor(context.getResources(), decoratorColor, null));
-        holder.moderatorFlag.setVisibility(currentUserId == event.getModeratorId() ? View.VISIBLE : View.GONE);
+        holder.moderatorFlag.setVisibility(event.isUserModerator() ? View.VISIBLE : View.GONE);
     }
 
     @Override

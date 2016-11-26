@@ -20,7 +20,6 @@ import butterknife.ButterKnife;
 import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.Event;
 import foi.hr.rscandroid.ui.BaseFragment;
-import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 
 public class EventsFragment extends BaseFragment {
 
@@ -75,8 +74,7 @@ public class EventsFragment extends BaseFragment {
 
         ArrayList<Event> events = getArguments().getParcelableArrayList(EXTRA_EVENTS);
         if (events != null && events.size() > 0) {
-            eventList.setAdapter(new EventsAdapter(getContext(), SharedPrefsHelper.getSharedPrefsInt(SharedPrefsHelper.USER_ID),
-                    decoratorColor, events));
+            eventList.setAdapter(new EventsAdapter(getContext(), decoratorColor, events));
         } else {
             emptyView.setVisibility(View.VISIBLE);
         }
