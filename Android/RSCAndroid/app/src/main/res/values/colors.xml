@@ -17,4 +17,5 @@
     <color name="tab_inactive">#E0E0E0</color>
 
     <color name="registrationErrorColor">#ffa8a8</color>
+    <color name="colorAccentDarker">#07665d</color>
 </resources>

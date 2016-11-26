@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,6 +21,7 @@ import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.UserRequest;
 import foi.hr.rscandroid.ui.BaseFragment;
 import foi.hr.rscandroid.ui.login.LoginActivity;
+import foi.hr.rscandroid.ui.shared.DisplayHelper;
 import foi.hr.rscandroid.ui.teams.TeamActivity;
 
 public class ProfileFragment extends BaseFragment {
@@ -55,6 +57,9 @@ public class ProfileFragment extends BaseFragment {
 
     @BindView(R.id.confirmation_container)
     LinearLayout confirmationContainer;
+
+    @BindView(R.id.tv_nickname)
+    TextView tvNickname;
 
     private UserRequest user;
 
@@ -115,21 +120,39 @@ public class ProfileFragment extends BaseFragment {
     public void onEditClicked() {
         confirmationContainer.setVisibility(View.VISIBLE);
         ivEdit.setVisibility(View.GONE);
+        tvNickname.setVisibility(View.GONE);
+        tvNicknameData.setVisibility(View.GONE);
+        etNicknameData.setVisibility(View.VISIBLE);
+        etNicknameData.setText(tvNicknameData.getText());
     }
 
     @OnClick(R.id.btn_accept)
     public void onAcceptClicked() {
+        if (etNicknameData.hasFocus()) {
+            etNicknameData.clearFocus();
+            DisplayHelper.hideKeyboard(etNicknameData);
+        }
         ivEdit.setVisibility(View.VISIBLE);
         confirmationContainer.setVisibility(View.GONE);
+        tvNicknameData.setVisibility(View.VISIBLE);
+        tvNickname.setVisibility(View.VISIBLE);
+        tvNicknameData.setText(etNicknameData.getText());
+        etNicknameData.setVisibility(View.GONE);
+        Toast.makeText(getBaseActivity(), "Nickname successfully updated", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick(R.id.btn_decline)
     public void onDeclineClicked() {
+        if (etNicknameData.hasFocus()) {
+            etNicknameData.clearFocus();
+            DisplayHelper.hideKeyboard(etNicknameData);
+        }
         ivEdit.setVisibility(View.VISIBLE);
         confirmationContainer.setVisibility(View.GONE);
+        tvNickname.setVisibility(View.VISIBLE);
+        tvNicknameData.setVisibility(View.VISIBLE);
+        etNicknameData.setVisibility(View.GONE);
     }
-
-
 
 
 }
