@@ -13,10 +13,6 @@
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.MainActivity">
-        </activity>
-        <activity android:name=".ui.dashboard.DashboardActivity">
-        </activity>
 
         <service android:name=".data.push.RSCFirebaseMessagingService">
             <intent-filter>
@@ -38,13 +34,19 @@
             android:value="@string/google_key"/>
 
         <activity
-                android:name=".ui.login.LoginActivity"
-                android:windowSoftInputMode="adjustResize">
+                android:name=".ui.splash.SplashActivity"
+                android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
+        <activity
+                android:name=".ui.login.LoginActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize">
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -53,13 +55,24 @@
                 <data android:scheme="@string/fb_login_protocol_scheme"/>
             </intent-filter>
         </activity>
+
         <activity
                 android:name=".ui.registration.RegistrationActivity"
                 android:theme="@style/RegistrationTheme"
-                android:windowSoftInputMode="adjustResize">
-        </activity>
-        <activity android:name=".ui.teams.TeamActivity">
-        </activity>
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+                android:name=".ui.main.MainActivity"
+                android:screenOrientation="portrait"/>
+
+        <activity
+                android:name=".ui.dashboard.DashboardActivity"
+                android:screenOrientation="portrait"/>
+
+        <activity
+                android:name=".ui.teams.TeamActivity"
+                android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
