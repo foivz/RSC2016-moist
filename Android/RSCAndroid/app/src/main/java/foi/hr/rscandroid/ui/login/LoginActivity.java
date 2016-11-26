@@ -23,9 +23,9 @@ import android.widget.EditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.User;
+import foi.hr.rscandroid.data.models.UserRequest;
 import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.dashboard.DashboardActivity;
 import foi.hr.rscandroid.ui.registration.RegistrationActivity;
@@ -78,8 +78,10 @@ public class LoginActivity extends BaseActivity implements LoginView, GoogleApiC
     }
 
     @Override
-    public void proceedToMain() {
-        startActivity(new Intent(this, DashboardActivity.class));
+    public void proceedToMain(UserRequest response) {
+        Intent intent = new Intent(this, DashboardActivity.class);
+        intent.putExtra(EXTRA_USER_DATA, response);
+        startActivity(intent);
     }
 
     @Override
@@ -156,17 +158,10 @@ public class LoginActivity extends BaseActivity implements LoginView, GoogleApiC
         });
     }
 
-    @OnClick(R.id.btn_login)
-    public void normalLoginButtonClicked() {
-        //presenter.login(etEmail.getText().toString(), etPassword.getText().toString());
-        proceedToRegistration(null);
-    }
-
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
-
 
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d("G+SIGNINSTATUS", "handleSignInResult:" + result.isSuccess());
