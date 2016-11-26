@@ -31,8 +31,8 @@ public class LoginPresenter {
         public void onSuccess(User userModel) {
             storeTokenToPrefs(userModel.getToken());
             view.hideProgress();
-            if (userModel.getUserData().isRegistered()) {
-                view.proceedToMain();
+            if (userModel.getUserData().isRegistered() == 1) {
+                view.proceedToMain(userModel);
             } else {
                 view.proceedToRegistration(userModel);
             }
@@ -74,8 +74,8 @@ public class LoginPresenter {
         public void onSuccess(BaseResponse<User> userBaseResponse) {
             view.hideProgress();
             storeTokenToPrefs(userBaseResponse.getResponse().getToken());
-            if (userBaseResponse.getResponse().getUserData().isRegistered()) {
-                view.proceedToMain();
+            if (userBaseResponse.getResponse().getUserData().isRegistered() == 1) {
+                view.proceedToMain(userBaseResponse.getResponse());
             } else {
                 view.proceedToRegistration(userBaseResponse.getResponse());
             }

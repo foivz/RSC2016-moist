@@ -58,6 +58,8 @@ dependencies {
     compile 'com.roughike:bottom-bar:2.0.2'
 
     compile 'com.facebook.android:facebook-android-sdk:4.17.0'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+
 }
 
 //This needs to be on the bottom, Firebase specific

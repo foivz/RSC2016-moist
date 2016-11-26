@@ -1,29 +1,38 @@
 package foi.hr.rscandroid.ui.dashboard;
 
+import com.facebook.login.LoginManager;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import foi.hr.rscandroid.R;
+import foi.hr.rscandroid.data.models.UserRequest;
 import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.dashboard.events.EventsFragment;
 import foi.hr.rscandroid.ui.dashboard.map.MapFragment;
 import foi.hr.rscandroid.ui.dashboard.profile.ProfileFragment;
 import foi.hr.rscandroid.ui.dashboard.upcoming.UpcomingFragment;
+import foi.hr.rscandroid.ui.login.LoginActivity;
+import foi.hr.rscandroid.ui.login.LoginPresenter;
 import foi.hr.rscandroid.ui.shared.ColorUtils;
+import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 
 public class DashboardActivity extends BaseActivity {
 
@@ -49,29 +58,40 @@ public class DashboardActivity extends BaseActivity {
 
     private ProfileFragment profileFragment;
 
+    private UserRequest user;
+
+    private ImageButton menuButton;
+
+    private int tabNumber = 0;
+
     private OnTabSelectListener tabSelectListener = new OnTabSelectListener() {
         @Override
         public void onTabSelected(@IdRes int tabId) {
             int previousColor = currentColor;
+            invalidateOptionsMenu();
             switch (tabId) {
                 case R.id.tab_upcoming:
+                    tabNumber = 0;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null));
                     switchFragment(UpcomingFragment.newInstance(currentColor));
                     break;
 
                 case R.id.tab_events:
+                    tabNumber = 1;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_events, null));
                     switchFragment(EventsFragment.newInstance(currentColor));
                     break;
 
                 case R.id.tab_map:
+                    tabNumber = 2;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_map, null));
                     switchFragment(MapFragment.newInstance());
                     break;
 
                 case R.id.tab_profile:
+                    tabNumber = 3;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_profile, null));
-                    switchFragment(ProfileFragment.newInstance(currentColor));
+                    switchFragment(ProfileFragment.newInstance(currentColor, user));
                     break;
 
                 default:
@@ -96,9 +116,14 @@ public class DashboardActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
-
+        setSupportActionBar(toolbar);
+        bindDataFromIntent();
         initFragments();
         initUi();
+    }
+
+    private void bindDataFromIntent() {
+        user = (UserRequest) getIntent().getSerializableExtra(LoginActivity.EXTRA_USER_DATA);
     }
 
     private void initFragments() {
@@ -148,4 +173,51 @@ public class DashboardActivity extends BaseActivity {
         ValueAnimator animator = ColorUtils.getColorChangeAnimator(oldColor, newColor, colorChangeDuration, colorChangeListener);
         animator.start();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //TODO Add more icons
+        switch (tabNumber) {
+            case 3:
+                getMenuInflater().inflate(R.menu.menu_profile, menu);
+                return true;
+            case 0:
+            case 1:
+            case 2:
+            default:
+                return super.onCreateOptionsMenu(menu);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.btn_menu_action:
+                switch (tabNumber) {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        signOut();
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void signOut() {
+        SharedPrefsHelper.clearSingleSharedPrefsItem(LoginPresenter.TOKEN);
+        LoginManager.getInstance().logOut();
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
 }
