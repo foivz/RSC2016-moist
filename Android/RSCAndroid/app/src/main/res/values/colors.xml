@@ -19,4 +19,5 @@
     <color name="moderator_bg">#98292D</color>
 
     <color name="registrationErrorColor">#ffa8a8</color>
+    <color name="colorAccentDarker">#07665d</color>
 </resources>

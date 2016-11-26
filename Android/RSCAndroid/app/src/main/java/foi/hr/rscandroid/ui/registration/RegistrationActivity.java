@@ -54,6 +54,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationVi
     public void proceedToDashboard(UserRequest user) {
         Intent intent = new Intent(this, DashboardActivity.class);
         intent.putExtra(LoginActivity.EXTRA_USER_DATA, user);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

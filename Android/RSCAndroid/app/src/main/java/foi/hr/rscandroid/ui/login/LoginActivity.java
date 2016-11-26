@@ -81,6 +81,7 @@ public class LoginActivity extends BaseActivity implements LoginView, GoogleApiC
     public void proceedToMain(UserRequest response) {
         Intent intent = new Intent(this, DashboardActivity.class);
         intent.putExtra(EXTRA_USER_DATA, response);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
