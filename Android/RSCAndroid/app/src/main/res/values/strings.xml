@@ -3,6 +3,13 @@
     <string name="loading">Loading…</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+
     <string name="facebook_app_id">1829184290631001</string>
+
+    <string name="google_key">AIzaSyB3o7sP-Y4MQAuEekYTNrygpiZJtWt1u7g</string>
+
     <string name="fb_login_protocol_scheme">fb1829184290631001</string>
+    <string name="location_rationale">To view available quizzes near you, the app needs your permission to access your location.</string>
+
+    <string name="your_location">Your location</string>
 </resources>

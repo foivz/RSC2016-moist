@@ -3,6 +3,7 @@ package foi.hr.rscandroid.data.networking;
 
 import foi.hr.rscandroid.data.models.BaseRequest;
 import foi.hr.rscandroid.data.models.BaseResponse;
+import foi.hr.rscandroid.data.models.EventsResponse;
 import foi.hr.rscandroid.data.models.User;
 import foi.hr.rscandroid.data.models.UserRequest;
 import retrofit2.Call;
@@ -24,4 +25,7 @@ public interface ApiService {
 
     @POST("/api/users/create")
     Call<Void> sendNickname(@Body BaseRequest<UserRequest> user);
+
+    @GET("/api/quiz/")
+    Call<BaseResponse<EventsResponse>> fetchEvents();
 }

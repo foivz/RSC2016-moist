@@ -14,15 +14,19 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
+
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import foi.hr.rscandroid.R;
+import foi.hr.rscandroid.data.models.Event;
 import foi.hr.rscandroid.data.models.UserRequest;
 import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.dashboard.events.EventsFragment;
@@ -32,9 +36,18 @@ import foi.hr.rscandroid.ui.dashboard.upcoming.UpcomingFragment;
 import foi.hr.rscandroid.ui.login.LoginActivity;
 import foi.hr.rscandroid.ui.login.LoginPresenter;
 import foi.hr.rscandroid.ui.shared.ColorUtils;
+import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
 import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 
-public class DashboardActivity extends BaseActivity {
+public class DashboardActivity extends BaseActivity implements DashboardView {
+
+    public static final int TAB_PROFILE = 3;
+
+    public static final int TAB_MAP = 2;
+
+    public static final int TAB_EVENTS = 1;
+
+    public static final int TAB_UPCOMING = 0;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -47,6 +60,8 @@ public class DashboardActivity extends BaseActivity {
 
     @BindInt(R.integer.color_change_duration)
     int colorChangeDuration;
+
+    private DashboardPresenter presenter;
 
     private int currentColor;
 
@@ -64,6 +79,8 @@ public class DashboardActivity extends BaseActivity {
 
     private int tabNumber = 0;
 
+    private ArrayList<Event> events;
+
     private OnTabSelectListener tabSelectListener = new OnTabSelectListener() {
         @Override
         public void onTabSelected(@IdRes int tabId) {
@@ -71,27 +88,31 @@ public class DashboardActivity extends BaseActivity {
             invalidateOptionsMenu();
             switch (tabId) {
                 case R.id.tab_upcoming:
-                    tabNumber = 0;
+                    tabNumber = TAB_UPCOMING;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null));
                     switchFragment(UpcomingFragment.newInstance(currentColor));
+                    setToolbarVisibile(true);
                     break;
 
                 case R.id.tab_events:
-                    tabNumber = 1;
+                    tabNumber = TAB_EVENTS;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_events, null));
                     switchFragment(EventsFragment.newInstance(currentColor));
+                    setToolbarVisibile(true);
                     break;
 
                 case R.id.tab_map:
-                    tabNumber = 2;
+                    tabNumber = TAB_MAP;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_map, null));
-                    switchFragment(MapFragment.newInstance(currentColor));
+                    switchFragment(MapFragment.newInstance(events));
+                    setToolbarVisibile(false);
                     break;
 
                 case R.id.tab_profile:
-                    tabNumber = 3;
+                    tabNumber = TAB_PROFILE;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_profile, null));
                     switchFragment(ProfileFragment.newInstance(currentColor, user));
+                    setToolbarVisibile(true);
                     break;
 
                 default:
@@ -116,10 +137,15 @@ public class DashboardActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
         bindDataFromIntent();
+
         initFragments();
         initUi();
+
+        presenter = MvpFactoryUtil.getPresenter(this);
+        presenter.init();
     }
 
     private void bindDataFromIntent() {
@@ -178,12 +204,12 @@ public class DashboardActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         //TODO Add more icons
         switch (tabNumber) {
-            case 3:
+            case TAB_PROFILE:
                 getMenuInflater().inflate(R.menu.menu_profile, menu);
                 return true;
-            case 0:
-            case 1:
-            case 2:
+            case TAB_UPCOMING:
+            case TAB_EVENTS:
+            case TAB_MAP:
             default:
                 return super.onCreateOptionsMenu(menu);
         }
@@ -195,13 +221,13 @@ public class DashboardActivity extends BaseActivity {
         switch (id) {
             case R.id.btn_menu_action:
                 switch (tabNumber) {
-                    case 0:
+                    case TAB_UPCOMING:
                         break;
-                    case 1:
+                    case TAB_EVENTS:
                         break;
-                    case 2:
+                    case TAB_MAP:
                         break;
-                    case 3:
+                    case TAB_PROFILE:
                         signOut();
                         break;
                 }
@@ -212,6 +238,14 @@ public class DashboardActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setToolbarVisibile(boolean visible) {
+        if (visible) {
+            toolbar.setVisibility(View.VISIBLE);
+        } else {
+            toolbar.setVisibility(View.GONE);
+        }
+    }
+
     private void signOut() {
         SharedPrefsHelper.clearSingleSharedPrefsItem(LoginPresenter.TOKEN);
         LoginManager.getInstance().logOut();
@@ -220,4 +254,8 @@ public class DashboardActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onEventsReceived(ArrayList<Event> events) {
+        this.events = events;
+    }
 }
