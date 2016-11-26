@@ -25,6 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import foi.hr.rscandroid.R;
+import foi.hr.rscandroid.data.models.User;
 import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.main.MainActivity;
 import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
@@ -35,6 +36,8 @@ public class LoginActivity extends BaseActivity implements LoginView, GoogleApiC
     public static final String EMAIL = "email";
 
     private static final int RC_SIGN_IN = 420;
+
+    public static final String EXTRA_USER_DATA = "EXTRA_USER_DATA";
 
     @BindView(R.id.et_email)
     EditText etEmail;
@@ -90,8 +93,10 @@ public class LoginActivity extends BaseActivity implements LoginView, GoogleApiC
     }
 
     @Override
-    public void proceedToUserDetails() {
-        startActivity(new Intent(this, RegistrationActivity.class));
+    public void proceedToRegistration(User userData) {
+        Intent intent = new Intent(this, RegistrationActivity.class);
+        intent.putExtra(EXTRA_USER_DATA, userData);
+        startActivity(intent);
     }
 
     private void initUi() {
@@ -132,7 +137,9 @@ public class LoginActivity extends BaseActivity implements LoginView, GoogleApiC
         facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+                Log.e("FB", loginResult.getAccessToken().getToken());
                 presenter.sendFbAuthToApi(loginResult.getAccessToken().getToken());
+
                 showProgress();
             }
 
@@ -150,7 +157,8 @@ public class LoginActivity extends BaseActivity implements LoginView, GoogleApiC
 
     @OnClick(R.id.btn_login)
     public void normalLoginButtonClicked() {
-        presenter.login(etEmail.getText().toString(), etPassword.getText().toString());
+        //presenter.login(etEmail.getText().toString(), etPassword.getText().toString());
+        proceedToRegistration(null);
     }
 
     @Override
@@ -163,6 +171,7 @@ public class LoginActivity extends BaseActivity implements LoginView, GoogleApiC
         Log.d("G+SIGNINSTATUS", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();
+            Log.e("GTOKEN", acct.getIdToken());
             presenter.sendGoogleAuthToAPI(acct.getIdToken());
         } else {
             showMessage("Failed to authenticate g+ account");

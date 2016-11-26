@@ -2,7 +2,9 @@ package foi.hr.rscandroid.data.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class UserData {
+import java.io.Serializable;
+
+public class UserData implements Serializable {
 
     @SerializedName("id")
     private int id;
@@ -15,6 +17,9 @@ public class UserData {
 
     @SerializedName("isRegistered")
     private boolean isRegistered;
+
+    @SerializedName("nickname")
+    private String nickname;
 
     public int getId() {
         return id;
@@ -46,5 +51,13 @@ public class UserData {
 
     public void setRegistered(boolean registered) {
         isRegistered = registered;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

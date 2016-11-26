@@ -46,9 +46,8 @@
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
             android:text="Log in"
-            android:visibility="gone"
+            android:visibility="visible"
             android:textColor="@android:color/white"
             android:background="@color/colorAccent"
             style="?attr/selectableItemBackground"/>
