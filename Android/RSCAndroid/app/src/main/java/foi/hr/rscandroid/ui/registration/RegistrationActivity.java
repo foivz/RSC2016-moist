@@ -2,6 +2,7 @@ package foi.hr.rscandroid.ui.registration;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import butterknife.BindView;
@@ -11,6 +12,7 @@ import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.User;
 import foi.hr.rscandroid.data.models.UserData;
 import foi.hr.rscandroid.ui.BaseActivity;
+import foi.hr.rscandroid.ui.dashboard.DashboardActivity;
 import foi.hr.rscandroid.ui.login.LoginActivity;
 import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
 
@@ -49,7 +51,9 @@ public class RegistrationActivity extends BaseActivity implements RegistrationVi
 
     @Override
     public void proceedToDashboard(User user) {
-        
+        Intent intent = new Intent(this, DashboardActivity.class);
+        intent.putExtra(LoginActivity.EXTRA_USER_DATA, user);
+        startActivity(intent);
     }
 
     @Override
