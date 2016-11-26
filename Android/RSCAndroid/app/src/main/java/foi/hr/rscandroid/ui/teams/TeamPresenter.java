@@ -18,7 +18,7 @@ public class TeamPresenter {
     }
 
     public void checkTeams(ArrayList<Team> teams) {
-        if (!teams.isEmpty()) {
+        if (teams != null && !teams.isEmpty()) {
             view.populateAdapter(teams);
         } else {
             view.showNoTeamsView();

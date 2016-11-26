@@ -42,7 +42,7 @@ public class TeamActivity extends BaseActivity implements TeamView {
         ButterKnife.bind(this);
         presenter = MvpFactoryUtil.getPresenter(this);
         if (getIntent().getSerializableExtra(ProfileFragment.EXTRA_TEAMS) != null) {
-            teams = (ArrayList<Team>) getIntent().getSerializableExtra(ProfileFragment.EXTRA_TEAMS);
+            teams = getIntent().getParcelableExtra(ProfileFragment.EXTRA_TEAMS);
         }
 
         presenter.checkTeams(teams);

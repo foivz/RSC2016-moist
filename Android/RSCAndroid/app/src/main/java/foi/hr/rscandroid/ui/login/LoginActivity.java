@@ -28,8 +28,8 @@ import foi.hr.rscandroid.data.models.User;
 import foi.hr.rscandroid.data.models.UserRequest;
 import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.dashboard.DashboardActivity;
-import foi.hr.rscandroid.ui.registration.RegistrationActivity;
 import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
+import foi.hr.rscandroid.ui.registration.RegistrationActivity;
 
 public class LoginActivity extends BaseActivity implements LoginView, GoogleApiClient.OnConnectionFailedListener {
 

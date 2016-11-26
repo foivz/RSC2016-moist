@@ -8,7 +8,9 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -35,6 +37,24 @@ public class ProfileFragment extends BaseFragment {
 
     @BindView(R.id.tv_name)
     TextView tvName;
+
+    @BindView(R.id.tv_email_data)
+    TextView tvEmailData;
+
+    @BindView(R.id.et_nickname_data)
+    EditText etNicknameData;
+
+    @BindView(R.id.iv_edit)
+    ImageView ivEdit;
+
+    @BindView(R.id.btn_accept)
+    ImageView btnAccept;
+
+    @BindView(R.id.btn_decline)
+    ImageView btnDecline;
+
+    @BindView(R.id.confirmation_container)
+    LinearLayout confirmationContainer;
 
     private UserRequest user;
 
@@ -79,6 +99,9 @@ public class ProfileFragment extends BaseFragment {
                 .load(user.getUserData().getAvatar())
                 .into(ivAvatar);
 
+        tvName.setText(user.getUserData().getName());
+        tvNicknameData.setText(user.getUserData().getNickname());
+        tvEmailData.setText(user.getUserData().getEmail());
     }
 
     @OnClick(R.id.btn_view_teams)
@@ -87,5 +110,26 @@ public class ProfileFragment extends BaseFragment {
         intent.putExtra(EXTRA_TEAMS, user.getUserData().getTeams());
         startActivity(intent);
     }
+
+    @OnClick(R.id.iv_edit)
+    public void onEditClicked() {
+        confirmationContainer.setVisibility(View.VISIBLE);
+        ivEdit.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.btn_accept)
+    public void onAcceptClicked() {
+        ivEdit.setVisibility(View.VISIBLE);
+        confirmationContainer.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.btn_decline)
+    public void onDeclineClicked() {
+        ivEdit.setVisibility(View.VISIBLE);
+        confirmationContainer.setVisibility(View.GONE);
+    }
+
+
+
 
 }

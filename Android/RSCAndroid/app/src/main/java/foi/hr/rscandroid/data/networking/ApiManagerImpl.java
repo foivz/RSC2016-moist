@@ -1,7 +1,13 @@
 package foi.hr.rscandroid.data.networking;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.joda.time.DateTime;
+
 import foi.hr.rscandroid.BuildConfig;
+import foi.hr.rscandroid.data.converters.DateTimeConverter;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -44,9 +50,15 @@ public class ApiManagerImpl implements ApiManager {
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(API_ENDPOINT)
                 .client(client)
-                .addConverterFactory(GsonConverterFactory.create());
+                .addConverterFactory(GsonConverterFactory.create(getGson()));
 
         service = builder.build().create(ApiService.class);
+    }
+
+    private Gson getGson() {
+        return new GsonBuilder()
+                .registerTypeAdapter(DateTime.class, new DateTimeConverter())
+                .create();
     }
 
     @Override
