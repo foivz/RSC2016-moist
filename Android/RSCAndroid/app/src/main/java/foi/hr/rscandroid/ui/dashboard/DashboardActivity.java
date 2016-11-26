@@ -102,7 +102,7 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
                 case R.id.tab_events:
                     tabNumber = TAB_EVENTS;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_events, null));
-                    switchFragment(EventsFragment.newInstance(currentColor));
+                    switchFragment(EventsFragment.newInstance(currentColor, events));
                     setToolbarVisibile(true);
                     break;
 
