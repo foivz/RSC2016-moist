@@ -7,6 +7,12 @@ import foi.hr.rscandroid.RSCApplication;
 
 public class SharedPrefsHelper {
 
+    public static final String KEY_LAT = "lat";
+
+    public static final String KEY_LNG = "lan";
+
+    public static final String USER_ID = "user_id";
+
     public static String getSharedPrefsString(String key) {
         return PreferenceManager.getDefaultSharedPreferences(RSCApplication.getInstance()).getString(key, "");
     }
@@ -37,5 +43,13 @@ public class SharedPrefsHelper {
 
     public static long getSharedPrefsLong(String key) {
         return PreferenceManager.getDefaultSharedPreferences(RSCApplication.getInstance()).getLong(key, 0);
+    }
+
+    public static void setSharedPrefsInt(String key, int value) {
+        PreferenceManager.getDefaultSharedPreferences(RSCApplication.getInstance()).edit().putInt(key, value).apply();
+    }
+
+    public static long getSharedPrefsInt(String key) {
+        return PreferenceManager.getDefaultSharedPreferences(RSCApplication.getInstance()).getInt(key, 0);
     }
 }

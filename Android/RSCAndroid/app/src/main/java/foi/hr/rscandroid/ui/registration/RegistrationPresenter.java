@@ -9,6 +9,7 @@ import foi.hr.rscandroid.data.models.BaseRequest;
 import foi.hr.rscandroid.data.models.User;
 import foi.hr.rscandroid.data.models.UserRequest;
 import foi.hr.rscandroid.ui.shared.Listener;
+import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 
 public class RegistrationPresenter {
 
@@ -45,6 +46,7 @@ public class RegistrationPresenter {
         @Override
         public void onSuccess(Void aVoid) {
             view.hideProgress();
+            SharedPrefsHelper.setSharedPrefsInt(SharedPrefsHelper.USER_ID, user.getUserData().getId());
             view.proceedToDashboard(user);
         }
 

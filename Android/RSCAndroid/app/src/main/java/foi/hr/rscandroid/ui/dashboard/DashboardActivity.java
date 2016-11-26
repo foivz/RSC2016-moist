@@ -6,9 +6,12 @@ import com.roughike.bottombar.OnTabSelectListener;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.IdRes;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +33,8 @@ import foi.hr.rscandroid.data.models.Event;
 import foi.hr.rscandroid.data.models.UserRequest;
 import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.dashboard.events.EventsFragment;
+import foi.hr.rscandroid.ui.dashboard.map.CurrentLocationUtil;
+import foi.hr.rscandroid.ui.dashboard.map.LocationListener;
 import foi.hr.rscandroid.ui.dashboard.map.MapFragment;
 import foi.hr.rscandroid.ui.dashboard.profile.ProfileFragment;
 import foi.hr.rscandroid.ui.dashboard.upcoming.UpcomingFragment;
@@ -90,14 +95,14 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
                 case R.id.tab_upcoming:
                     tabNumber = TAB_UPCOMING;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null));
-                    switchFragment(UpcomingFragment.newInstance(currentColor));
+                    switchFragment(EventsFragment.newInstance(currentColor, R.color.tab_map, R.string.empty_upcoming, null));
                     setToolbarVisibile(true);
                     break;
 
                 case R.id.tab_events:
                     tabNumber = TAB_EVENTS;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_events, null));
-                    switchFragment(EventsFragment.newInstance(currentColor));
+                    switchFragment(EventsFragment.newInstance(currentColor, R.color.tab_upcoming, R.string.empty_events, events));
                     setToolbarVisibile(true);
                     break;
 
@@ -165,7 +170,8 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
         initWindow();
 
         // Initial fragment
-        switchFragment(UpcomingFragment.newInstance(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null)));
+        setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null));
+        switchFragment(EventsFragment.newInstance(currentColor, R.color.tab_map, R.string.empty_upcoming, null));
     }
 
     private void switchFragment(Fragment fragment) {
@@ -257,5 +263,20 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
     @Override
     public void onEventsReceived(ArrayList<Event> events) {
         this.events = events;
+    }
+
+    @Override
+    public void fetchCurrentLocation() {
+        if (ActivityCompat.checkSelfPermission(this, MapFragment.PERMISSIONS[0]) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, MapFragment.PERMISSIONS[1]) == PackageManager.PERMISSION_GRANTED) {
+            CurrentLocationUtil.getCurrentLocation(this, new LocationListener() {
+                @Override
+                public void onLocationRetrieved(Location location) {
+                    SharedPrefsHelper.setSharedPrefsString(SharedPrefsHelper.KEY_LAT, String.valueOf(location.getLatitude()));
+                    SharedPrefsHelper.setSharedPrefsString(SharedPrefsHelper.KEY_LNG, String.valueOf(location.getLongitude()));
+                    presenter.onLocationRetrieved();
+                }
+            });
+        }
     }
 }

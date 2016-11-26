@@ -32,6 +32,7 @@ public class LoginPresenter {
             storeTokenToPrefs(userModel.getToken());
             view.hideProgress();
             if (userModel.getUserData().isRegistered() == 1) {
+                SharedPrefsHelper.setSharedPrefsInt(SharedPrefsHelper.USER_ID, userModel.getUserData().getId());
                 view.proceedToMain(userModel);
             } else {
                 view.proceedToRegistration(userModel);

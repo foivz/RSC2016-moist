@@ -30,10 +30,11 @@ import butterknife.ButterKnife;
 import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.Event;
 import foi.hr.rscandroid.ui.PermissionFragment;
+import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 
 public class MapFragment extends PermissionFragment implements OnMapReadyCallback {
 
-    private static final String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+    public static final String[] PERMISSIONS = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
 
     private static final double DEFAULT_LAT = 46.3076267;
 
@@ -136,14 +137,15 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
                 }
             }
         });
-        if (hasPermissions(PERMISSIONS) && !eventsShown) {
+        if (hasPermissions(PERMISSIONS)) {
             initUsersLocation();
-            showEventLocations();
+            if (!eventsShown) {
+                showEventLocations();
+            }
         }
     }
 
     private void showEventLocations() {
-        googleMap.clear();
         eventsShown = true;
         for (Event event : events) {
             showEventLocation(event);
@@ -157,9 +159,16 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ANIMATION_SPEED));
     }
 
+    @SuppressWarnings("MissingPermission")
     private void showCurrentLocation(@NonNull Location location) {
-        LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ANIMATION_SPEED));
+        if (googleMap != null) {
+            googleMap.setMyLocationEnabled(true);
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, ANIMATION_SPEED));
+            googleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        }
     }
 
     private void fetchCurrentLocation() {
@@ -167,6 +176,8 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
             @Override
             public void onLocationRetrieved(Location location) {
                 if (location != null) {
+                    SharedPrefsHelper.setSharedPrefsString(SharedPrefsHelper.KEY_LAT, String.valueOf(location.getLatitude()));
+                    SharedPrefsHelper.setSharedPrefsString(SharedPrefsHelper.KEY_LNG, String.valueOf(location.getLongitude()));
                     showCurrentLocation(location);
                 }
             }
