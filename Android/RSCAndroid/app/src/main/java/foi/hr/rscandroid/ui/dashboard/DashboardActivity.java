@@ -3,10 +3,13 @@ package foi.hr.rscandroid.ui.dashboard;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
 import butterknife.BindView;
@@ -20,11 +23,16 @@ import foi.hr.rscandroid.ui.dashboard.upcoming.UpcomingFragment;
 
 public class DashboardActivity extends BaseActivity {
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     @BindView(R.id.fragmentContainer)
     FrameLayout fragmentContainer;
 
     @BindView(R.id.bottomBar)
     BottomBar bottomBar;
+
+    private int currentColor;
 
     private UpcomingFragment upcomingFragment;
 
@@ -37,23 +45,32 @@ public class DashboardActivity extends BaseActivity {
     private OnTabSelectListener tabSelectListener = new OnTabSelectListener() {
         @Override
         public void onTabSelected(@IdRes int tabId) {
+            int previousColor = currentColor;
             switch (tabId) {
                 case R.id.tab_upcoming:
-                    switchFragment(UpcomingFragment.newInstance(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null)));
+                    setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null));
+                    switchFragment(UpcomingFragment.newInstance(currentColor));
                     break;
 
                 case R.id.tab_events:
-                    switchFragment(EventsFragment.newInstance(ResourcesCompat.getColor(getResources(), R.color.tab_events, null)));
+                    setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_events, null));
+                    switchFragment(EventsFragment.newInstance(currentColor));
                     break;
 
                 case R.id.tab_map:
-                    switchFragment(MapFragment.newInstance(ResourcesCompat.getColor(getResources(), R.color.tab_map, null)));
+                    setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_map, null));
+                    switchFragment(MapFragment.newInstance(currentColor));
                     break;
 
                 case R.id.tab_profile:
-                    switchFragment(ProfileFragment.newInstance(ResourcesCompat.getColor(getResources(), R.color.tab_profile, null)));
+                    setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_profile, null));
+                    switchFragment(ProfileFragment.newInstance(currentColor));
+                    break;
+
+                default:
                     break;
             }
+            animateToolbarColorChange(previousColor, currentColor);
         }
     };
 
@@ -76,6 +93,7 @@ public class DashboardActivity extends BaseActivity {
 
     private void initUi() {
         bottomBar.setOnTabSelectListener(tabSelectListener);
+        toolbar.setTitle("Hello, Jozo");
 
         // Initial fragment
         switchFragment(UpcomingFragment.newInstance(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null)));
@@ -88,5 +106,27 @@ public class DashboardActivity extends BaseActivity {
                 .replace(R.id.fragmentContainer, fragment)
                 .commit();
         getSupportFragmentManager().executePendingTransactions();
+    }
+
+    private void setCurrentColor(int color) {
+        currentColor = color;
+    }
+
+    private void setToolbarColor(int color) {
+        toolbar.setBackgroundColor(color);
+    }
+
+    private void animateToolbarColorChange(int oldColor, int newColor) {
+        ValueAnimator animator = new ValueAnimator();
+        animator.setIntValues(oldColor, newColor);
+        animator.setEvaluator(new ArgbEvaluator());
+        animator.setDuration(150);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                setToolbarColor((int) valueAnimator.getAnimatedValue());
+            }
+        });
+        animator.start();
     }
 }
