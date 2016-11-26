@@ -1,6 +1,7 @@
 package foi.hr.rscandroid.ui.login;
 
 
+import foi.hr.rscandroid.data.models.User;
 import foi.hr.rscandroid.ui.BaseMvp;
 
 public interface LoginView extends BaseMvp.View {
@@ -11,5 +12,5 @@ public interface LoginView extends BaseMvp.View {
 
     void setPwError(String s);
 
-    void proceedToUserDetails();
+    void proceedToRegistration(User userData);
 }

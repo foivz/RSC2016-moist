@@ -28,13 +28,13 @@ public class LoginPresenter {
 
     private Listener<User> facebookLoginListener = new Listener<User>() {
         @Override
-        public void onSuccess(User facebookLoginModel) {
-            storeTokenToPrefs(facebookLoginModel.getToken());
+        public void onSuccess(User userModel) {
+            storeTokenToPrefs(userModel.getToken());
             view.hideProgress();
-            if (facebookLoginModel.getUserData().isRegistered()) {
+            if (userModel.getUserData().isRegistered()) {
                 view.proceedToMain();
             } else {
-                view.proceedToUserDetails();
+                view.proceedToRegistration(userModel);
             }
         }
 
@@ -76,7 +76,7 @@ public class LoginPresenter {
             if (userBaseResponse.getResponse().getUserData().isRegistered()) {
                 view.proceedToMain();
             } else {
-                view.proceedToUserDetails();
+                view.proceedToRegistration(userBaseResponse.getResponse());
             }
         }
 
