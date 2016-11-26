@@ -15,11 +15,14 @@ public class UserData implements Serializable {
     @SerializedName("email")
     private String email;
 
-    @SerializedName("isRegistered")
-    private boolean isRegistered;
+    @SerializedName("registered")
+    private int isRegistered;
 
     @SerializedName("nickname")
     private String nickname;
+
+    @SerializedName("avatar")
+    private String avatar;
 
     public int getId() {
         return id;
@@ -45,11 +48,11 @@ public class UserData implements Serializable {
         this.email = email;
     }
 
-    public boolean isRegistered() {
+    public int isRegistered() {
         return isRegistered;
     }
 
-    public void setRegistered(boolean registered) {
+    public void setRegistered(int registered) {
         isRegistered = registered;
     }
 
@@ -59,5 +62,13 @@ public class UserData implements Serializable {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
