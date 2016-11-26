@@ -29,10 +29,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     private Context context;
 
+    private long currentUserId;
+
     private List<Event> events;
 
-    public EventsAdapter(Context context, List<Event> events) {
+    public EventsAdapter(Context context, long currentUserId, List<Event> events) {
         this.context = context;
+        this.currentUserId = currentUserId;
         this.events = events;
     }
 
@@ -69,6 +72,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         } else {
             holder.distance.setVisibility(View.GONE);
         }
+
+        holder.moderatorFlag.setVisibility(currentUserId == event.getModeratorId() ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -86,6 +91,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         @BindView(R.id.distance)
         TextView distance;
+
+        @BindView(R.id.moderator_flag)
+        TextView moderatorFlag;
 
         public ViewHolder(View view) {
             super(view);
