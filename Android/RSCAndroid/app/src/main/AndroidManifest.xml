@@ -13,9 +13,7 @@
             android:theme="@style/AppTheme">
         <activity android:name=".ui.main.MainActivity">
         </activity>
-
         <activity android:name=".ui.dashboard.DashboardActivity">
-
         </activity>
 
         <service android:name=".data.push.RSCFirebaseMessagingService">
@@ -23,7 +21,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
-
         <service android:name=".data.push.RSCFirebaseInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
@@ -39,19 +36,23 @@
                 android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
+
                 <action android:name="android.intent.action.VIEW"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
 
                 <data android:scheme="@string/fb_login_protocol_scheme"/>
-
             </intent-filter>
         </activity>
         <activity
                 android:name=".ui.registration.RegistrationActivity"
                 android:theme="@style/RegistrationTheme"
                 android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity android:name=".ui.teams.TeamActivity">
         </activity>
     </application>
 

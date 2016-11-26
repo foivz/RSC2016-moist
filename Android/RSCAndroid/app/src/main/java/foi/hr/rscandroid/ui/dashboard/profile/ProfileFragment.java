@@ -2,9 +2,9 @@ package foi.hr.rscandroid.ui.dashboard.profile;
 
 import com.bumptech.glide.Glide;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +13,12 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.UserRequest;
 import foi.hr.rscandroid.ui.BaseFragment;
 import foi.hr.rscandroid.ui.login.LoginActivity;
+import foi.hr.rscandroid.ui.teams.TeamActivity;
 
 public class ProfileFragment extends BaseFragment {
 
@@ -31,9 +33,6 @@ public class ProfileFragment extends BaseFragment {
 
     @BindView(R.id.tv_name)
     TextView tvName;
-
-    @BindView(R.id.rv_team_participation)
-    RecyclerView rvTeamParticipation;
 
     private UserRequest user;
 
@@ -78,6 +77,13 @@ public class ProfileFragment extends BaseFragment {
                 .load(user.getUserData().getAvatar())
                 .into(ivAvatar);
 
+    }
+
+    @OnClick(R.id.btn_view_teams)
+    public void viewTeamsBtnClicked() {
+        Intent intent = new Intent(getBaseActivity(), TeamActivity.class);
+        intent.putExtra("EXTRA_TEAMS", user.getUserData().getTeams());
+        startActivity(intent);
     }
 
 }
