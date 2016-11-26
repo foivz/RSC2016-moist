@@ -9,13 +9,16 @@
             android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/bottomBar"/>
+            android:layout_above="@+id/bottomBar"/>
 
     <com.roughike.bottombar.BottomBar
             android:id="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
-            app:bb_tabXmlResource="@xml/bottombar_tabs"/>
+            app:bb_tabXmlResource="@xml/bottombar_tabs"
+            app:bb_inActiveTabColor="@android:color/darker_gray"
+            app:bb_activeTabColor="@android:color/white"
+            app:bb_behavior="shifting"/>
 
 </RelativeLayout>
