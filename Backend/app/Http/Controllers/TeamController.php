@@ -7,12 +7,13 @@ use App\TeamMember;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class TeamController extends Controller
 {
     /**
      * @Middleware("auth:api")
-     * @Get("/api/team/{id}", as="api.team.id")
+     * @Get("/api/team/{id}", as="api.team.show")
      */
     public function show(Request $request, $id)
     {
@@ -26,6 +27,38 @@ class TeamController extends Controller
         }
 
         $ret['response']['error'] = "Team not found";
+
+        return response($ret, Response::HTTP_BAD_REQUEST);
+    }
+
+    /**
+     * @Middleware("auth:api")
+     * @Post("/api/team", as="api.team.create")
+     */
+    public function create(Request $request)
+    {
+        $user = $request->user();
+        $requestTeam = $request->get('request')['team'];
+
+        if (Validator::make($requestTeam, ['name' => 'unique:teams'])->passes()) {
+            $teamData = [
+                "name" => $requestTeam['name'],
+                "size" => $requestTeam['size'],
+            ];
+
+            $team = Team::firstOrCreate($teamData);
+
+            $teamUserData = [
+                "team_id" => $team->id,
+                "user_id" => $user->id
+            ];
+
+            TeamMember::firstOrCreate($teamUserData);
+
+            return response("{}", Response::HTTP_OK);
+        }
+
+        $ret['response']['error'] = "Team name in use.";
 
         return response($ret, Response::HTTP_BAD_REQUEST);
     }
