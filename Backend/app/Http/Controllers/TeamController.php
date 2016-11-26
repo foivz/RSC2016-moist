@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\Validator;
 class TeamController extends Controller
 {
     /**
+     * @Get("/api/teams")
+     */
+    public function index()
+    {
+        $ret['response']['teams'] = Team::all();
+
+        return response($ret, Response::HTTP_OK);
+    }
+
+    /**
      * @Middleware("auth:api")
      * @Get("/api/team/{id}", as="api.team.show")
      */

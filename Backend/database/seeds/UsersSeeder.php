@@ -19,7 +19,7 @@ class UsersSeeder extends Seeder
                 "email" => "rajkov.stefano@gmail.com",
                 "registered" => true,
                 "created_at" => Carbon::now(),
-                "updated_at" => Carbon::now()
+                "updated_at" => Carbon::now(),
             ],
             [
                 "name" => "x x",
