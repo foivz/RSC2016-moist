@@ -19,6 +19,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.dashboard.DashboardActivity"/>
+
         <service android:name=".data.push.RSCFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
