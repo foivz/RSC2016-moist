@@ -7,7 +7,10 @@
     <color name="secondaryText">#757575</color>
     <color name="dividerColor">#BDBDBD</color>
     <color name="colorAccent">#009688</color>
+
+    <color name="tab_upcoming">#F44336</color>
+    <color name="tab_events">#607D8B</color>
+    <color name="tab_map">#4CAF50</color>
+    <color name="tab_profile">#3F51B5</color>
     <color name="registrationErrorColor">#ffa8a8</color>
-
-
 </resources>
