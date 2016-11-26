@@ -66,7 +66,7 @@ public class DashboardActivity extends BaseActivity {
 
                 case R.id.tab_map:
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_map, null));
-                    switchFragment(MapFragment.newInstance(currentColor));
+                    switchFragment(MapFragment.newInstance());
                     break;
 
                 case R.id.tab_profile:

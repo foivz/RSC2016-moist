@@ -27,6 +27,7 @@ import butterknife.OnClick;
 import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.User;
 import foi.hr.rscandroid.ui.BaseActivity;
+import foi.hr.rscandroid.ui.dashboard.DashboardActivity;
 import foi.hr.rscandroid.ui.main.MainActivity;
 import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
 import foi.hr.rscandroid.ui.registration.RegistrationActivity;
@@ -157,8 +158,7 @@ public class LoginActivity extends BaseActivity implements LoginView, GoogleApiC
 
     @OnClick(R.id.btn_login)
     public void normalLoginButtonClicked() {
-        //presenter.login(etEmail.getText().toString(), etPassword.getText().toString());
-        proceedToRegistration(null);
+        startActivity(new Intent(this, DashboardActivity.class));
     }
 
     @Override
