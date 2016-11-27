@@ -3,8 +3,6 @@ package foi.hr.rscandroid.ui.game;
 
 import android.support.v4.app.Fragment;
 
-import java.util.ArrayList;
-
 import foi.hr.rscandroid.data.interactors.GameInteractor;
 import foi.hr.rscandroid.data.models.QuestionData;
 import foi.hr.rscandroid.ui.game.fillanswer.EditAnswerFragment;
@@ -23,25 +21,21 @@ public class GamePresenter {
     }
 
 
-    public void setupFragments(ArrayList<QuestionData> questions) {
-        ArrayList<Fragment> fragmentsList = new ArrayList<>();
-
-        for (QuestionData q : questions) {
-            switch (q.getQuestionType()) {
-                case QuestionData.SINGLE_ANSWER_QUESTION:
-                    fragmentsList.add(SingleAnswerFragment.newInstance(q));
-                    break;
-                case QuestionData.MULTIPLE_ANSWER_QUESTION:
-                    fragmentsList.add(MultipleAnswerFragment.newInstance(q));
-                    break;
-                case QuestionData.EDIT_ANSWER_QUESTION:
-                    fragmentsList.add(EditAnswerFragment.newInstance(q));
-                    break;
-                default:
-                    break;
-            }
+    public void addNewFragment(QuestionData question) {
+        Fragment fragment = null;
+        switch (question.getQuestionType()) {
+            case QuestionData.SINGLE_ANSWER_QUESTION:
+                fragment = SingleAnswerFragment.newInstance(question);
+                break;
+            case QuestionData.MULTIPLE_ANSWER_QUESTION:
+                fragment = MultipleAnswerFragment.newInstance(question);
+                break;
+            case QuestionData.EDIT_ANSWER_QUESTION:
+                fragment = EditAnswerFragment.newInstance(question);
+                break;
+            default:
+                break;
         }
-
-        view.returnFragments(fragmentsList);
+        view.switchFragments(fragment);
     }
 }

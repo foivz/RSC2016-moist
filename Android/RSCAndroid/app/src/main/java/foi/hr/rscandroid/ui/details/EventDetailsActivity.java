@@ -8,6 +8,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,27 +18,33 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.Event;
+import foi.hr.rscandroid.data.models.Team;
 import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.shared.ColorUtils;
+import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
+import foi.hr.rscandroid.ui.shared.OnTeamClickListener;
+import foi.hr.rscandroid.ui.teams.TeamsAdapter;
 
-public class EventDetailsActivity extends BaseActivity {
-
-    private static final String DATE_TIME_PATTERN = "dd.MM.yyyy.";
+public class EventDetailsActivity extends BaseActivity implements EventDetailsView, OnTeamClickListener {
 
     private static final String EXTRA_EVENT = "event";
 
@@ -61,10 +68,19 @@ public class EventDetailsActivity extends BaseActivity {
     @BindView(R.id.action)
     Button action;
 
+    @BindView(R.id.rv_teams)
+    RecyclerView rvTeams;
+
+    @BindView(R.id.teams_container)
+    LinearLayout teamsContainer;
+
+
     @ColorInt
     private int color;
 
     private Event event;
+
+    private EventDetailsPresenter presenter;
 
     public static Intent newInstance(Context context, Event event, @ColorRes int color) {
         Intent intent = new Intent(context, EventDetailsActivity.class);
@@ -79,6 +95,7 @@ public class EventDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_event_details);
         ButterKnife.bind(this);
         mapView.onCreate(savedInstanceState);
+        presenter = MvpFactoryUtil.getPresenter(this);
         initUi();
     }
 
@@ -96,7 +113,7 @@ public class EventDetailsActivity extends BaseActivity {
             }
         });
 
-        String date = new SimpleDateFormat(DATE_TIME_PATTERN).format(event.getDate().toDate());
+        String date = event.getDate();
         if (!TextUtils.isEmpty(event.getTime())) {
             date += " ";
             date += event.getTime();
@@ -143,7 +160,8 @@ public class EventDetailsActivity extends BaseActivity {
 
     @OnClick(R.id.action)
     protected void doAction() {
-        showMessage("REJECTED!");
+        showProgress();
+        presenter.makeCall(event);
     }
 
     @Override
@@ -183,5 +201,27 @@ public class EventDetailsActivity extends BaseActivity {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void quizStarted() {
+
+    }
+
+    @Override
+    public void quizStartFailed(String error) {
+
+    }
+
+    @Override
+    public void showTeams(ArrayList<Team> teamArrayList) {
+        teamsContainer.setVisibility(View.VISIBLE);
+        rvTeams.setAdapter(new TeamsAdapter(teamArrayList, this, rvTeams, this));
+        rvTeams.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void onTeamClicked(Team team) {
+        FirebaseMessaging.getInstance().subscribeToTopic(team.getTeamId() + "");
     }
 }

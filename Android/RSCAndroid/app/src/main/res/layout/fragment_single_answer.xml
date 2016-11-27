@@ -11,6 +11,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginLeft="@dimen/default_spacing"
             android:textSize="22sp"
             android:textColor="@android:color/white"
             android:text="QUESTION"/>

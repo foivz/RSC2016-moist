@@ -2,6 +2,7 @@ package foi.hr.rscandroid.data.push;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,15 +10,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import foi.hr.rscandroid.R;
+import foi.hr.rscandroid.data.models.Answer;
+import foi.hr.rscandroid.data.models.QuestionData;
+import foi.hr.rscandroid.ui.game.GameActivity;
 import foi.hr.rscandroid.ui.main.MainActivity;
 
 public class RSCFirebaseMessagingService extends FirebaseMessagingService {
 
-    public static final String DATA_MESSAGE_PREDEFINED_KEY = "response";
+    public static final String question = "question";
+
+    public static final String answer = "answer";
 
     public RSCFirebaseMessagingService() {
     }
@@ -41,9 +48,18 @@ public class RSCFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
-        //TODO uncomment one of these to make Push work
-        sendNotification(remoteMessage.getNotification().getBody());
-        //sendNotification(remoteMessage.getData().get(DATA_MESSAGE_PREDEFINED_KEY));
+        startQuestionActivity(remoteMessage.getData().get(question), remoteMessage.getData().get(answer));
+
+    }
+
+    private void startQuestionActivity(String s, String s1) {
+        Intent intent = new Intent(this, GameActivity.class);
+        Gson gson = new Gson();
+        QuestionData qd = gson.fromJson(s, QuestionData.class);
+        Answer[] a = gson.fromJson(s1, Answer[].class);
+        intent.putExtra(GameActivity.EXTRA_QUESTION, (Parcelable) qd);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private void sendNotification(String messageBody) {

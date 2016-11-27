@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import butterknife.BindView;
@@ -68,9 +67,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         holder.icon.setImageResource(iconRes);
         holder.title.setText(event.getName());
-
+        String date = event.getDate();
         if (event.getDate() != null) {
-            String date = new SimpleDateFormat(DATE_TIME_PATTERN).format(event.getDate().toDate());
             if (!TextUtils.isEmpty(event.getTime())) {
                 date += " ";
                 date += event.getTime();

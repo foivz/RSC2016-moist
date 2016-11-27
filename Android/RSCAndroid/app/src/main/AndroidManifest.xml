@@ -82,9 +82,12 @@
 
         <activity
                 android:name=".ui.tdetails.TeamDetailsActivity"
-                android:theme="@style/TeamsTheme">
+                android:theme="@style/TeamsTheme"
+                android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.game.GameActivity">
+        <activity
+                android:name=".ui.game.GameActivity"
+                android:screenOrientation="portrait">
         </activity>
 
         <activity android:name=".ui.qr.BarCodeActivity"/>
