@@ -7,7 +7,9 @@ import foi.hr.rscandroid.data.interactors.EventDetailsInteractor;
 import foi.hr.rscandroid.data.models.BaseRequest;
 import foi.hr.rscandroid.data.models.Event;
 import foi.hr.rscandroid.data.models.Question;
+import foi.hr.rscandroid.data.models.TeamsResponse;
 import foi.hr.rscandroid.ui.shared.Listener;
+import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 
 public class EventDetailsPresenter {
 
@@ -28,6 +30,10 @@ public class EventDetailsPresenter {
             q.setQuestionData(event.getQuestions().get(0));
             baseRequest.setRequest(q);
             interactor.startQuiz(event.getId(), baseRequest, startQuizListener);
+            SharedPrefsHelper.setSharedPrefsBoolean("isMod", event.isUserModerator());
+        } else {
+            SharedPrefsHelper.setSharedPrefsBoolean("isMod", event.isUserModerator());
+            interactor.getTeams(fetchTeamsListener);
         }
     }
 
@@ -43,6 +49,19 @@ public class EventDetailsPresenter {
         public void onError(String error) {
             view.hideProgress();
             view.quizStartFailed(error);
+        }
+    };
+
+    private Listener<TeamsResponse> fetchTeamsListener = new Listener<TeamsResponse>() {
+        @Override
+        public void onSuccess(TeamsResponse teamsResponse) {
+            view.hideProgress();
+            view.showTeams(teamsResponse.getTeamArrayList());
+        }
+
+        @Override
+        public void onError(String error) {
+            view.hideProgress();
         }
     };
 

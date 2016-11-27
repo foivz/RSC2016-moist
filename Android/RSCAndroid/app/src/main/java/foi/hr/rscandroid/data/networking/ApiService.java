@@ -44,4 +44,7 @@ public interface ApiService {
 
     @POST("/api/quiz/{quizId}/next_question")
     Call<Void> startQuiz(@Path("quizId") long id, @Body BaseRequest<Question> questionData);
+
+    @GET("/api/teams/users/{user-id}")
+    Call<BaseResponse<TeamsResponse>> fetchMyTeams(@Path("user-id") int user_id);
 }

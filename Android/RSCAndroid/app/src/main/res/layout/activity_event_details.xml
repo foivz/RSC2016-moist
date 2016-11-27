@@ -19,9 +19,9 @@
             android:layout_height="match_parent">
 
         <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
             <com.google.android.gms.maps.MapView
                     android:id="@+id/mapView"
@@ -37,8 +37,8 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="16dp">
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -83,7 +83,6 @@
                         android:layout_marginTop="8dp"
                         tools:text="Opis Opisdjnlas jdas dnkasd jnasdn aklasd nlkasd asnlkd asd nlkasd anklsd asnkd asd lkas dlknas dknal"/>
 
-
                 <Button
                         android:id="@+id/action"
                         android:layout_width="match_parent"
@@ -93,6 +92,29 @@
                         android:textSize="16sp"
                         android:textStyle="bold"
                         tools:text="Start quiz!"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/teams_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/default_spacing"
+                        android:layout_marginTop="@dimen/default_spacing"
+                        android:layout_gravity="center"
+                        android:text="Pick your team"
+                        />
+
+                <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_teams"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/default_spacing"/>
 
             </LinearLayout>
 

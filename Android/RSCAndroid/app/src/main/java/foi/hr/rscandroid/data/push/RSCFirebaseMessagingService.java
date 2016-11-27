@@ -57,10 +57,8 @@ public class RSCFirebaseMessagingService extends FirebaseMessagingService {
         Gson gson = new Gson();
         QuestionData qd = gson.fromJson(s, QuestionData.class);
         Answer[] a = gson.fromJson(s1, Answer[].class);
-        for (int i = 0; i < a.length; i++) {
-            qd.setASingleAnswer(a[i]);
-        }
         intent.putExtra(GameActivity.EXTRA_QUESTION, (Parcelable) qd);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 

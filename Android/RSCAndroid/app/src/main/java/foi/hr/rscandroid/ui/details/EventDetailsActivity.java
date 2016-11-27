@@ -8,6 +8,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,24 +18,33 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.Event;
+import foi.hr.rscandroid.data.models.Team;
 import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.shared.ColorUtils;
 import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
+import foi.hr.rscandroid.ui.shared.OnTeamClickListener;
+import foi.hr.rscandroid.ui.teams.TeamsAdapter;
 
-public class EventDetailsActivity extends BaseActivity implements EventDetailsView {
+public class EventDetailsActivity extends BaseActivity implements EventDetailsView, OnTeamClickListener {
 
     private static final String EXTRA_EVENT = "event";
 
@@ -57,6 +67,13 @@ public class EventDetailsActivity extends BaseActivity implements EventDetailsVi
 
     @BindView(R.id.action)
     Button action;
+
+    @BindView(R.id.rv_teams)
+    RecyclerView rvTeams;
+
+    @BindView(R.id.teams_container)
+    LinearLayout teamsContainer;
+
 
     @ColorInt
     private int color;
@@ -194,5 +211,17 @@ public class EventDetailsActivity extends BaseActivity implements EventDetailsVi
     @Override
     public void quizStartFailed(String error) {
 
+    }
+
+    @Override
+    public void showTeams(ArrayList<Team> teamArrayList) {
+        teamsContainer.setVisibility(View.VISIBLE);
+        rvTeams.setAdapter(new TeamsAdapter(teamArrayList, this, rvTeams, this));
+        rvTeams.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    public void onTeamClicked(Team team) {
+        FirebaseMessaging.getInstance().subscribeToTopic(team.getTeamId() + "");
     }
 }

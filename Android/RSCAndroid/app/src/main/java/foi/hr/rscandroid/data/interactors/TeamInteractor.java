@@ -11,6 +11,7 @@ import foi.hr.rscandroid.data.models.TeamsResponse;
 import foi.hr.rscandroid.data.networking.ApiService;
 import foi.hr.rscandroid.data.networking.BaseCallback;
 import foi.hr.rscandroid.ui.shared.Listener;
+import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -27,7 +28,7 @@ public class TeamInteractor {
     }
 
     public void fetchTeams(final Listener<ArrayList<Team>> teamListener) {
-        call = service.fetchTeams();
+        call = service.fetchMyTeams(SharedPrefsHelper.getSharedPrefsInt("USER_ID"));
 
         baseCallback = new BaseCallback<BaseResponse<TeamsResponse>>() {
             @Override
