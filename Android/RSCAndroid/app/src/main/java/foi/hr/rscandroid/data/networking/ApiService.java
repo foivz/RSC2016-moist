@@ -4,6 +4,8 @@ package foi.hr.rscandroid.data.networking;
 import foi.hr.rscandroid.data.models.BaseRequest;
 import foi.hr.rscandroid.data.models.BaseResponse;
 import foi.hr.rscandroid.data.models.EventsResponse;
+import foi.hr.rscandroid.data.models.TeamDetails;
+import foi.hr.rscandroid.data.models.TeamsResponse;
 import foi.hr.rscandroid.data.models.User;
 import foi.hr.rscandroid.data.models.UserRequest;
 import retrofit2.Call;
@@ -32,4 +34,10 @@ public interface ApiService {
 
     @PUT("/api/users/{id}")
     Call<Void> updateNickname(@Body BaseRequest<User> newNickname, @Path("id") int id);
+
+    @GET("/api/teams")
+    Call<BaseResponse<TeamsResponse>> fetchTeams();
+
+    @GET("/api/team/{id}")
+    Call<BaseResponse<TeamDetails>> fetchTeamDetails(@Path("id") int id);
 }

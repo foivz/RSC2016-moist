@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:layout_height="110dp"
+              android:layout_height="75dp"
               android:paddingTop="8dp"
               android:paddingBottom="8dp"
               android:orientation="vertical">
@@ -13,19 +13,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/default_spacing"
             android:layout_marginTop="10dp"
+            android:textColor="@color/primaryText"
             android:textSize="16sp"
             android:textStyle="bold"
             tools:text="Moist"
             />
-
-    <TextView
-            android:id="@+id/tv_curr_members"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_spacing"
-            android:layout_marginTop="@dimen/small_spacing"
-            android:textSize="14sp"
-            tools:text="@string/team_curr_members_string"/>
 
     <TextView
             android:id="@+id/tv_max_members"
@@ -33,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/default_spacing"
             android:layout_marginTop="@dimen/small_spacing"
+            android:textColor="@color/secondaryText"
             android:textSize="14sp"
             tools:text="@string/max_slots_in_team"
             />
