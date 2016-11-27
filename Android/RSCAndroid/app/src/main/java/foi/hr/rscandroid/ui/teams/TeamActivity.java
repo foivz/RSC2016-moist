@@ -34,6 +34,8 @@ public class TeamActivity extends BaseActivity implements TeamView, OnTeamClickL
 
     public static final int REQUEST_CODE_SCAN = 420;
 
+    public static final int REQUEST_CODE_CREATE = 421;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -42,7 +44,6 @@ public class TeamActivity extends BaseActivity implements TeamView, OnTeamClickL
 
     @BindView(R.id.no_teams_container)
     LinearLayout noTeamsContainer;
-
 
     @BindView(R.id.fab)
     FloatingActionButton fab;
@@ -97,7 +98,7 @@ public class TeamActivity extends BaseActivity implements TeamView, OnTeamClickL
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK && data != null) {
+        if ((requestCode == REQUEST_CODE_CREATE || requestCode == REQUEST_CODE_SCAN) && resultCode == RESULT_OK && data != null) {
             Team team = data.getParcelableExtra(EXTRA_TEAM);
             adapter.add(team);
         } else {
@@ -122,7 +123,7 @@ public class TeamActivity extends BaseActivity implements TeamView, OnTeamClickL
 
     @OnClick(R.id.fab)
     public void fabClicked() {
-        startActivity(new Intent(this, NewTeamActivity.class));
+        startActivityForResult(new Intent(this, NewTeamActivity.class), REQUEST_CODE_CREATE);
     }
 
     @Override
