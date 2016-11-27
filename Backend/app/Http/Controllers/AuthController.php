@@ -37,4 +37,32 @@ class AuthController extends Controller
 
         return response($ret, Response::HTTP_OK);
     }
+
+    /**
+     * @Middleware("web")
+     * @Get("/social/{driver}/redirect")
+     *
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return Response
+     */
+    public function redirectToProvider($driver)
+    {
+        return Socialite::driver($driver)->redirect();
+    }
+
+    /**
+     * @Middleware("web")
+     * @Get("/social/{driver}/callback")
+     *
+     * Obtain the user information from GitHub.
+     *
+     * @return Response
+     */
+    public function handleProviderCallback($driver)
+    {
+        $user = Socialite::driver($driver)->user();
+
+        dd($user);
+    }
 }

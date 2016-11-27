@@ -50,8 +50,7 @@ class QuizTeamController extends Controller
     }
 
     /**
-     * @Middleware("auth:api")
-     * @Post("/api/quiz/{quiz_id}/start")
+     * @Post("/api/quiz/{quiz_id}/next_question")
      */
     public function nextQuestion(Request $request, $quiz_id)
     {
@@ -66,8 +65,6 @@ class QuizTeamController extends Controller
     }
 
     /**
-     * this value will be stored as their final answer when times up!
-     *
      * @Middleware("auth:api")
      * @Post("/api/quiz/{quiz_id}/team/{team_id}/answer/submit")
      */
