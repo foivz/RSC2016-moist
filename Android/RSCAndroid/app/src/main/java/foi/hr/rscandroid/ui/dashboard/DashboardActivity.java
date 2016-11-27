@@ -168,7 +168,10 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
 
     private void initUi() {
         bottomBar.setOnTabSelectListener(tabSelectListener);
-        toolbar.setTitle("Hello, Jozo");
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Hello, " + user.getUserData().getNickname());
+
         initWindow();
 
         // Initial fragment

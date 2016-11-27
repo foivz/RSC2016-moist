@@ -96,9 +96,6 @@ public class EventDetailsActivity extends BaseActivity {
             }
         });
 
-        toolbar.setBackgroundColor(color);
-        toolbar.setTitle(event.getName());
-
         String date = new SimpleDateFormat(DATE_TIME_PATTERN).format(event.getDate().toDate());
         if (!TextUtils.isEmpty(event.getTime())) {
             date += " ";
@@ -109,6 +106,7 @@ public class EventDetailsActivity extends BaseActivity {
         description.setText(event.getDescription());
         prizes.setText(event.getPrizes());
 
+        action.setBackgroundColor(color);
         if (event.isUserModerator()) {
             action.setText("Start quiz!");
         } else {
@@ -117,7 +115,9 @@ public class EventDetailsActivity extends BaseActivity {
     }
 
     private void initBars() {
+        toolbar.setBackgroundColor(color);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(event.getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
