@@ -28,7 +28,7 @@ public class GameActivity extends BaseActivity implements GameView, FragmentComm
     @BindView(R.id.btn_user_sync)
     Button btnUserSync;
 
-    @BindView(R.id.moderator_next_q)
+    @BindView(R.id.btn_mod_next)
     Button moderatorNextQ;
 
     private QuestionData question;
@@ -43,6 +43,8 @@ public class GameActivity extends BaseActivity implements GameView, FragmentComm
     private ArrayList<Fragment> fragments;
 
     private int currPos = 0;
+
+    private int currAnswer = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,13 +122,18 @@ public class GameActivity extends BaseActivity implements GameView, FragmentComm
 
     }
 
-    @OnClick(R.id.btn_user_sync)
-    public void syncClicked() {
-
+    @Override
+    public void rbChecked(int i) {
+        currAnswer = i;
     }
 
-    @OnClick(R.id.btn_next)
-    public void nextClicked() {
+    @OnClick(R.id.btn_user_sync)
+    public void syncClicked() {
+        presenter.syncClicked(currAnswer);
+    }
 
+    @OnClick(R.id.btn_mod_next)
+    public void nextClicked() {
+        presenter.requestNewQuestion();
     }
 }

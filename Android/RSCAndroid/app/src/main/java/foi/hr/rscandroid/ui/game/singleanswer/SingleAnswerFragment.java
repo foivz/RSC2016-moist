@@ -34,6 +34,8 @@ public class SingleAnswerFragment extends BaseFragment implements SingleAnswerVi
 
     private SingleAnswerPresenter presenter;
 
+    private int checked = 0;
+
     public static SingleAnswerFragment newInstance(QuestionData q) {
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_QUESTION, q);
@@ -84,7 +86,24 @@ public class SingleAnswerFragment extends BaseFragment implements SingleAnswerVi
             radioGroup.addView(radioButton);
         }
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                for (int j = 0; j < radioGroup.getChildCount(); j++) {
+                    RadioButton radioButton = (RadioButton) radioGroup.getChildAt(j);
+                    if (radioButton.isChecked()) {
+                        checked = j + 1;
+                    }
+                }
+
+                fragmentCommandListener.rbChecked(checked);
+
+            }
+        });
+
         fragmentCommandListener.startTimer();
     }
+
 
 }

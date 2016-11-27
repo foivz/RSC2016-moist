@@ -3,6 +3,7 @@ package foi.hr.rscandroid.ui.details;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import foi.hr.rscandroid.RSCApplication;
 import foi.hr.rscandroid.data.interactors.EventDetailsInteractor;
 import foi.hr.rscandroid.data.models.BaseRequest;
 import foi.hr.rscandroid.data.models.Event;
@@ -24,12 +25,15 @@ public class EventDetailsPresenter {
 
     public void makeCall(Event event) {
         FirebaseMessaging.getInstance().subscribeToTopic(event.getId() + "");
+        RSCApplication.setQuestions(event.getQuestions());
         if (event.isUserModerator()) {
             BaseRequest<Question> baseRequest = new BaseRequest<>();
             Question q = new Question();
             q.setQuestionData(event.getQuestions().get(0));
             baseRequest.setRequest(q);
+            SharedPrefsHelper.setSharedPrefsInt("EVENT_ID", (int) event.getId());
             interactor.startQuiz(event.getId(), baseRequest, startQuizListener);
+            RSCApplication.incrementCurrPos();
             SharedPrefsHelper.setSharedPrefsBoolean("isMod", event.isUserModerator());
         } else {
             SharedPrefsHelper.setSharedPrefsBoolean("isMod", event.isUserModerator());
