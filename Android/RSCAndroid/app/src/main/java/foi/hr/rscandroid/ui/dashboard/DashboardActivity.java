@@ -95,16 +95,16 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
                 case R.id.tab_upcoming:
                     tabNumber = TAB_UPCOMING;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null));
-                    switchFragment(EventsFragment.newInstance(currentColor, R.drawable.ic_question_teal, R.color.colorAccent,
-                            R.string.empty_upcoming, null));
+                    switchFragment(EventsFragment.newInstance(currentColor, R.drawable.ic_question_teal, R.color.tab_upcoming,
+                            R.color.colorAccent, R.string.empty_upcoming, null));
                     setToolbarVisibile(true);
                     break;
 
                 case R.id.tab_events:
                     tabNumber = TAB_EVENTS;
                     setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_events, null));
-                    switchFragment(EventsFragment.newInstance(currentColor, R.drawable.ic_question_red, R.color.tab_upcoming,
-                            R.string.empty_events, events));
+                    switchFragment(EventsFragment.newInstance(currentColor, R.drawable.ic_question_red, R.color.tab_events,
+                            R.color.tab_upcoming, R.string.empty_events, events));
                     setToolbarVisibile(true);
                     break;
 
@@ -168,12 +168,15 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
 
     private void initUi() {
         bottomBar.setOnTabSelectListener(tabSelectListener);
-        toolbar.setTitle("Hello, Jozo");
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Hello, " + user.getUserData().getNickname());
+
         initWindow();
 
         // Initial fragment
         setCurrentColor(ResourcesCompat.getColor(getResources(), R.color.tab_upcoming, null));
-        switchFragment(EventsFragment.newInstance(currentColor, R.drawable.ic_question_teal, R.color.tab_map,
+        switchFragment(EventsFragment.newInstance(currentColor, R.drawable.ic_question_teal, R.color.tab_upcoming, R.color.colorAccent,
                 R.string.empty_upcoming, null));
     }
 
