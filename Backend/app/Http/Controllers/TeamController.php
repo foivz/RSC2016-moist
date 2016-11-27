@@ -63,9 +63,11 @@ class TeamController extends Controller
                 "user_id" => $user->id
             ];
 
+            $ret['response']['team'] = $team;
+
             TeamMember::firstOrCreate($teamUserData);
 
-            return response("{}", Response::HTTP_OK);
+            return response($ret, Response::HTTP_OK);
         }
 
         $ret['response']['error'] = "Team name in use.";
