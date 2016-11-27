@@ -69,7 +69,6 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
         ButterKnife.bind(this, view);
 
         events = getArguments().getParcelableArrayList(EXTRA_EVENTS);
-
         mapView.onCreate(savedInstanceState);
         initUi();
 

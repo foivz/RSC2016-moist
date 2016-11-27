@@ -54,6 +54,8 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
 
     public static final int TAB_UPCOMING = 0;
 
+    public static final String USER_ID = "USER_ID";
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -147,7 +149,7 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
 
         setSupportActionBar(toolbar);
         bindDataFromIntent();
-
+        SharedPrefsHelper.setSharedPrefsInt(USER_ID, user.getUserData().getId());
         initFragments();
         initUi();
 

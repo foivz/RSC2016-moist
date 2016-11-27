@@ -164,6 +164,7 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
 
     @Override
     public void onNickUpdateSuccess() {
+        user.getUserData().setNickname(etNicknameData.getText().toString());
         Toast.makeText(getBaseActivity(), "Nickname successfully updated", Toast.LENGTH_SHORT).show();
 
     }

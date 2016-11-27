@@ -25,8 +25,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.text.SimpleDateFormat;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -34,10 +32,9 @@ import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.Event;
 import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.shared.ColorUtils;
+import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
 
-public class EventDetailsActivity extends BaseActivity {
-
-    private static final String DATE_TIME_PATTERN = "dd.MM.yyyy.";
+public class EventDetailsActivity extends BaseActivity implements EventDetailsView {
 
     private static final String EXTRA_EVENT = "event";
 
@@ -66,6 +63,8 @@ public class EventDetailsActivity extends BaseActivity {
 
     private Event event;
 
+    private EventDetailsPresenter presenter;
+
     public static Intent newInstance(Context context, Event event, @ColorRes int color) {
         Intent intent = new Intent(context, EventDetailsActivity.class);
         intent.putExtra(EXTRA_EVENT, event);
@@ -79,6 +78,7 @@ public class EventDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_event_details);
         ButterKnife.bind(this);
         mapView.onCreate(savedInstanceState);
+        presenter = MvpFactoryUtil.getPresenter(this);
         initUi();
     }
 
@@ -96,7 +96,7 @@ public class EventDetailsActivity extends BaseActivity {
             }
         });
 
-        String date = new SimpleDateFormat(DATE_TIME_PATTERN).format(event.getDate().toDate());
+        String date = event.getDate();
         if (!TextUtils.isEmpty(event.getTime())) {
             date += " ";
             date += event.getTime();
@@ -143,7 +143,8 @@ public class EventDetailsActivity extends BaseActivity {
 
     @OnClick(R.id.action)
     protected void doAction() {
-        showMessage("REJECTED!");
+        showProgress();
+        presenter.makeCall(event);
     }
 
     @Override
@@ -183,5 +184,15 @@ public class EventDetailsActivity extends BaseActivity {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void quizStarted() {
+
+    }
+
+    @Override
+    public void quizStartFailed(String error) {
+
     }
 }

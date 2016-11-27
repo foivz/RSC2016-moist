@@ -19,6 +19,10 @@ public class GameActivity extends BaseActivity implements GameView, FragmentComm
 
     public static final String EXTRA_QUESTIONS = "EXTRA_QUESTIONS";
 
+    public static final String EXTRA_QUESTION = "EXTRA_QUESTION";
+
+    private QuestionData question;
+
     @BindView(R.id.tv_timer)
     TextView tvTimer;
 
@@ -38,14 +42,19 @@ public class GameActivity extends BaseActivity implements GameView, FragmentComm
 
         presenter = MvpFactoryUtil.getPresenter(this);
         questions = getIntent().getParcelableExtra(EXTRA_QUESTIONS);
-        presenter.setupFragments(questions);
+        question = (QuestionData) getIntent().getSerializableExtra(EXTRA_QUESTION);
+
+
+        if (question != null) {
+            presenter.addNewFragment(question);
+        }
     }
 
-    private void switchFragment() {
+    public void switchFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                .replace(R.id.fragmentContainer, fragments.get(currPos))
+                .replace(R.id.fragmentContainer, fragment)
                 .commit();
         getSupportFragmentManager().executePendingTransactions();
     }
@@ -53,6 +62,11 @@ public class GameActivity extends BaseActivity implements GameView, FragmentComm
     @Override
     public void returnFragments(ArrayList<Fragment> fragmentsList) {
         fragments = fragmentsList;
+    }
+
+    @Override
+    public void switchFragments(Fragment fragment) {
+        switchFragment(fragment);
     }
 
     private CountDownTimer countDownTimer = new CountDownTimer(30000, 1000) {
