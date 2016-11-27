@@ -4,6 +4,7 @@ package foi.hr.rscandroid.data.networking;
 import foi.hr.rscandroid.data.models.BaseRequest;
 import foi.hr.rscandroid.data.models.BaseResponse;
 import foi.hr.rscandroid.data.models.EventsResponse;
+import foi.hr.rscandroid.data.models.Question;
 import foi.hr.rscandroid.data.models.TeamDetails;
 import foi.hr.rscandroid.data.models.TeamResponse;
 import foi.hr.rscandroid.data.models.TeamsResponse;
@@ -41,6 +42,12 @@ public interface ApiService {
 
     @GET("/api/team/{id}")
     Call<BaseResponse<TeamDetails>> fetchTeamDetails(@Path("id") int id);
+
+    @POST("/api/quiz/{quizId}/next_question")
+    Call<Void> startQuiz(@Path("quizId") long id, @Body BaseRequest<Question> questionData);
+
+    @GET("/api/teams/users/{user-id}")
+    Call<BaseResponse<TeamsResponse>> fetchMyTeams(@Path("user-id") int user_id);
 
     @POST("/api/team/{team_id}/user/{user_id}")
     Call<BaseResponse<TeamResponse>> processBarcode(@Path("team_id") int teamId, @Path("user_id") int userId);

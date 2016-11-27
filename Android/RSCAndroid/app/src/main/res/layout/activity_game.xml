@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:text="Sync"
+            android:id="@+id/btn_user_sync"
             android:visibility="gone"
             android:textColor="@android:color/white"
             android:background="@drawable/registration_button_border"/>
@@ -48,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:id="@+id/moderator_next_q"
             android:text="Next question"
             android:visibility="gone"
             android:textColor="@android:color/white"

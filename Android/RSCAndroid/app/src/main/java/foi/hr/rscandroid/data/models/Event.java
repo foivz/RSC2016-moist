@@ -2,12 +2,13 @@ package foi.hr.rscandroid.data.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import org.joda.time.DateTime;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.List;
+
+import foi.hr.rscandroid.ui.dashboard.DashboardActivity;
+import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 
 
 public class Event implements Parcelable {
@@ -30,7 +31,7 @@ public class Event implements Parcelable {
     private double longitude;
 
     @SerializedName("date")
-    private DateTime date;
+    private String date;
 
     @SerializedName("time")
     private String time;
@@ -44,13 +45,12 @@ public class Event implements Parcelable {
     @SerializedName("teams")
     private List<Team> teams;
 
+    @SerializedName("questions")
+    private List<QuestionData> questions;
+
     private transient float distanceFromCurrentLocation = INVALID_DISTANCE;
 
     private transient boolean userModerator = false;
-
-    public Event() {
-    }
-
 
     protected Event(Parcel in) {
         id = in.readLong();
@@ -58,34 +58,12 @@ public class Event implements Parcelable {
         name = in.readString();
         latitude = in.readDouble();
         longitude = in.readDouble();
+        date = in.readString();
         time = in.readString();
         description = in.readString();
         prizes = in.readString();
         teams = in.createTypedArrayList(Team.CREATOR);
-        distanceFromCurrentLocation = in.readFloat();
-        userModerator = in.readInt() == 1;
-        date = (DateTime) in.readSerializable();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(id);
-        dest.writeLong(moderatorId);
-        dest.writeString(name);
-        dest.writeDouble(latitude);
-        dest.writeDouble(longitude);
-        dest.writeString(time);
-        dest.writeString(description);
-        dest.writeString(prizes);
-        dest.writeTypedList(teams);
-        dest.writeFloat(distanceFromCurrentLocation);
-        dest.writeInt(userModerator ? 1 : 0);
-        dest.writeSerializable(date);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+        questions = in.createTypedArrayList(QuestionData.CREATOR);
     }
 
     public static final Creator<Event> CREATOR = new Creator<Event>() {
@@ -99,6 +77,10 @@ public class Event implements Parcelable {
             return new Event[size];
         }
     };
+
+    public static float getInvalidDistance() {
+        return INVALID_DISTANCE;
+    }
 
     public long getId() {
         return id;
@@ -140,11 +122,11 @@ public class Event implements Parcelable {
         this.longitude = longitude;
     }
 
-    public DateTime getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -180,6 +162,14 @@ public class Event implements Parcelable {
         this.teams = teams;
     }
 
+    public List<QuestionData> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<QuestionData> questions) {
+        this.questions = questions;
+    }
+
     public float getDistanceFromCurrentLocation() {
         return distanceFromCurrentLocation;
     }
@@ -189,10 +179,31 @@ public class Event implements Parcelable {
     }
 
     public boolean isUserModerator() {
+        userModerator = moderatorId == SharedPrefsHelper.getSharedPrefsInt(DashboardActivity.USER_ID);
         return userModerator;
     }
 
-    public void setUserModerator(boolean moderator) {
-        this.userModerator = moderator;
+    public void setUserModerator(boolean userModerator) {
+        this.userModerator = userModerator;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
+        parcel.writeLong(moderatorId);
+        parcel.writeString(name);
+        parcel.writeDouble(latitude);
+        parcel.writeDouble(longitude);
+        parcel.writeString(date);
+        parcel.writeString(time);
+        parcel.writeString(description);
+        parcel.writeString(prizes);
+        parcel.writeTypedList(teams);
+        parcel.writeTypedList(questions);
     }
 }

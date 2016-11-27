@@ -4,6 +4,7 @@ package foi.hr.rscandroid.ui.shared;
 import foi.hr.rscandroid.RSCApplication;
 import foi.hr.rscandroid.data.interactors.BarcodeInteractor;
 import foi.hr.rscandroid.data.interactors.EditAnswerInteractor;
+import foi.hr.rscandroid.data.interactors.EventDetailsInteractor;
 import foi.hr.rscandroid.data.interactors.FetchEventsInteractor;
 import foi.hr.rscandroid.data.interactors.GameInteractor;
 import foi.hr.rscandroid.data.interactors.LoginInteractor;
@@ -15,6 +16,8 @@ import foi.hr.rscandroid.data.interactors.TeamDetailsInteractor;
 import foi.hr.rscandroid.data.interactors.TeamInteractor;
 import foi.hr.rscandroid.ui.dashboard.DashboardPresenter;
 import foi.hr.rscandroid.ui.dashboard.DashboardView;
+import foi.hr.rscandroid.ui.details.EventDetailsPresenter;
+import foi.hr.rscandroid.ui.details.EventDetailsView;
 import foi.hr.rscandroid.ui.game.GamePresenter;
 import foi.hr.rscandroid.ui.game.GameView;
 import foi.hr.rscandroid.ui.game.fillanswer.EditAnswerPresenter;
@@ -79,8 +82,13 @@ public class MvpFactoryUtil {
 
     }
 
+    public static EventDetailsPresenter getPresenter(EventDetailsView view) {
+        return new EventDetailsPresenter(view, new EventDetailsInteractor(RSCApplication.getApiService()));
+    }
+
     public static ScannerPresenter getPresenter(ScannerView view) {
         return new ScannerPresenter(view, new BarcodeInteractor(RSCApplication.getApiService()));
+
     }
 
 }

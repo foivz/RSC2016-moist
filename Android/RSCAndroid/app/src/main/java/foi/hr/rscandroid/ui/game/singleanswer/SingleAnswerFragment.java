@@ -2,6 +2,7 @@ package foi.hr.rscandroid.ui.game.singleanswer;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,6 +79,7 @@ public class SingleAnswerFragment extends BaseFragment implements SingleAnswerVi
         for (int i = 0; i < question.getAnswers().size(); i++) {
             RadioButton radioButton = new RadioButton(getBaseActivity());
             radioButton.setId(i);
+            radioButton.setTextColor(Color.WHITE);
             radioButton.setText(question.getAnswers().get(i).getContent());
             radioGroup.addView(radioButton);
         }
