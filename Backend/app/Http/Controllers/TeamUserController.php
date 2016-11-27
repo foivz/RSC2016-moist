@@ -27,7 +27,7 @@ class TeamUserController extends Controller
      */
     public function addMember($team_id, $user_id)
     {
-        $team = DB::select('SELECT * FROM teams WHERE id = ' . $team_id);
+        $team = Team::find($team_id);
         $user = User::find($user_id);
         $teamMemberData = TeamMember::where('user_id', $user_id)->where('team_id', $team_id)->first();
 
