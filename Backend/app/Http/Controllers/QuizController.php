@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Answers;
 use App\Quiz;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -23,7 +24,29 @@ class QuizController extends Controller
             $ret['response']['quizzes'][$i]['teams'] = $quiz['teams'];
         }
 
+        for ($i = 0; $i < count($ret['response']['quizzes']); ++$i) {
+            $quiz = $ret['response']['quizzes'][$i];
+            $quiz['questions'] = DB::select('SELECT * FROM questions q, quiz_questions qt WHERE qt.quiz_id = '. $quiz['id'] .' AND qt.question_id = q.id');
+            $ret['response']['quizzes'][$i]['questions'] = $quiz['questions'];
+        }
+
+        for ($i = 0; $i < count($ret['response']['quizzes']); ++$i) {
+             for ($j = 0; $j < count($ret['response']['quizzes'][$i]['questions']); ++$j) {
+                 $question = $ret['response']['quizzes'][$i]['questions'][$j];
+                 $answers = DB::select('SELECT * FROM answers WHERE question_id = ' . $question->id);
+                 $question->answers = $answers;
+             }
+        }
+
         return response($ret, Response::HTTP_OK);
+    }
+
+    /**
+     * @Get("/api/quiz/users/")
+     */
+    public function userSignedUpQuizzes(Request $request)
+    {
+        $user = $request->user();
     }
 
     /**

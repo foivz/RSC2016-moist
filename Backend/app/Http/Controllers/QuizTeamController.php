@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Answers;
+use App\Question;
 use App\Quiz;
 use App\QuizTeam;
 use App\Team;
@@ -47,9 +49,18 @@ class QuizTeamController extends Controller
         return response($ret, Response::HTTP_BAD_REQUEST);
     }
 
+    public function nextQuestion(Request $request, $quiz_id)
+    {
+        $question = $request->get('request')['question'];
+
+        $ret['response']['question'] = $question;
+        $ret['response']['question']['answer'] = Answers::where('question_id', $question['id']);
+
+        $this->pushNotification($ret, $quiz_id);
+    }
+
     /**
-     * Store curr answer in table....this value will be stored as
-     * their final answer when times up!
+     * this value will be stored as their final answer when times up!
      *
      * @Middleware("auth:api")
      * @Post("/api/quiz/{quiz_id}/team/{team_id}/answer/submit")
@@ -71,6 +82,8 @@ class QuizTeamController extends Controller
         $quiz_team = QuizTeam::where('quiz_id', $quiz_id)->where('team_id', $team_id);
         $quiz_team->score = $quiz_team->score + 10;
         $quiz_team->save();
+
+        // TODO iterate over list
 
         return response("{}", Response::HTTP_OK);
     }

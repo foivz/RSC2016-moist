@@ -17,9 +17,10 @@ class CreateQuestionsTable extends Migration
             $table->increments('id');
             $table->integer('category_id')->unsigned()->nullable()->default(NULL);
             $table->foreign('category_id')->references('id')->on('question_categories');
+            $table->integer('type_id')->unsigned()->nullable()->default(NULL);
+            $table->foreign('type_id')->references('id')->on('question_types');
             $table->text('content');
-            $table->boolean('typing');
-            $table->text('url');
+            $table->text('url')->nullable();
             $table->timestamps();
         });
     }

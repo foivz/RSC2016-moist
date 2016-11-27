@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class QuestionCategoriesSeeder extends Seeder
+class QuestionTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,16 +11,16 @@ class QuestionCategoriesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('question_categories')->insert([
+        DB::table('question_types')->insert([
             [
-                'name' => 'Animals'
+                "name" => "single"
             ],
             [
-                'name' => 'Music'
+                "name" => 'multiple'
             ],
             [
-                'name' => 'Geography'
-            ],
+                "name" => 'edit'
+            ]
         ]);
     }
 }
