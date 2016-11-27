@@ -109,7 +109,9 @@ public class EventDetailsActivity extends BaseActivity {
         description.setText(event.getDescription());
         prizes.setText(event.getPrizes());
 
-        if (!event.isUserModerator()) {
+        if (event.isUserModerator()) {
+            action.setText("Start quiz!");
+        } else {
             action.setText("Join quiz!");
         }
     }
