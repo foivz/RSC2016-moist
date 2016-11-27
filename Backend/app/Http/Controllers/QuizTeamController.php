@@ -49,6 +49,10 @@ class QuizTeamController extends Controller
         return response($ret, Response::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * @Middleware("auth:api")
+     * @Post("/api/quiz/{quiz_id}/start")
+     */
     public function nextQuestion(Request $request, $quiz_id)
     {
         $question = $request->get('request')['question'];
