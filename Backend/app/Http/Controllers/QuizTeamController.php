@@ -59,7 +59,7 @@ class QuizTeamController extends Controller
         $ret['response']['question'] = $question;
         $ret['response']['question']['answer'] = Answers::where('question_id', $question['id']);
 
-        $this->pushNotification($ret, $quiz_id);
+        $this->pushNotification($question['id'], $quiz_id);
 
         return response("{}", Response::HTTP_OK);
     }
@@ -98,14 +98,14 @@ class QuizTeamController extends Controller
         return response("{}", Response::HTTP_OK);
     }
 
-    private function pushNotification($answer, $team_id)
+    private function pushNotification($id, $team_id)
     {
         $message = new Message();
 
         $message->setPriority('high');
         $message->addRecipient(new Topic($team_id)); // topic name is team_id
-        $message->setNotification(new Notification('New Answer!', 'Answer: ' . $answer['id']))
-            ->setData(['answer_id' => $answer['id']]);
+        $message->setNotification(new Notification('New Answer!', 'Answer: ' . $id))
+            ->setData(['answer_id' => $id]);
 
         $response = $this->client->send($message);
 
