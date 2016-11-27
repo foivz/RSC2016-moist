@@ -5,6 +5,7 @@ import foi.hr.rscandroid.data.models.BaseRequest;
 import foi.hr.rscandroid.data.models.BaseResponse;
 import foi.hr.rscandroid.data.models.EventsResponse;
 import foi.hr.rscandroid.data.models.TeamDetails;
+import foi.hr.rscandroid.data.models.TeamResponse;
 import foi.hr.rscandroid.data.models.TeamsResponse;
 import foi.hr.rscandroid.data.models.User;
 import foi.hr.rscandroid.data.models.UserRequest;
@@ -40,4 +41,7 @@ public interface ApiService {
 
     @GET("/api/team/{id}")
     Call<BaseResponse<TeamDetails>> fetchTeamDetails(@Path("id") int id);
+
+    @POST("/api/team/{team_id}/user/{user_id}")
+    Call<BaseResponse<TeamResponse>> processBarcode(@Path("team_id") int teamId, @Path("user_id") int userId);
 }
