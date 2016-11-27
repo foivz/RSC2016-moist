@@ -61,6 +61,8 @@ class QuizTeamController extends Controller
         $ret['response']['question']['answer'] = Answers::where('question_id', $question['id']);
 
         $this->pushNotification($ret, $quiz_id);
+
+        return response("{}", Response::HTTP_OK);
     }
 
     /**
@@ -72,6 +74,8 @@ class QuizTeamController extends Controller
     public function submitAnswer(Request $request, $quiz_id, $team_id)
     {
         $this->pushNotification($request->get('request')['answer'], $team_id);
+
+        return response("{}", Response::HTTP_OK);
     }
 
     /**
