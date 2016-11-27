@@ -127,6 +127,16 @@ body {
 }
 
 .brand-logo {
-  font-size: 50px;
+  font-size: 28px !important;
   margin-left: 15px;
+}
+
+.admin-content-container{
+  margin-left: 300px;
+}
+
+.submit-quiz {
+  left: 40%;
+  height: 60px !important;
+  margin: 0 auto;
 }

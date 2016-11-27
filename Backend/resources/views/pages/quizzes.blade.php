@@ -9,6 +9,7 @@
           <th>Quizz name</th>
           <th>Date</th>
           <th>Time</th>
+          <th>Details</th>
       </tr>
       </thead>
       <tbody>
@@ -30,7 +31,7 @@
         <p>{!! $data[$i]->description !!}</p>
       </div>
       <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
       </div>
     </div>
   @endfor

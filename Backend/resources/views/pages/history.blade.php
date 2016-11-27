@@ -3,31 +3,36 @@
 @section('title', 'History')
 
 @section('content')
-<div class="content">
-  <h1 class="content-heading">Team moist presents</h1>
-  <hr />
-  <h1 class="content-heading">GetQuizzd</h1>
-  <p class="content-teaser">Meet GetQuizzd - an app that allowes your team to attend various quizzes. <br/> Prove your worth and win great prizes!</p>
-  <div class="social-login-container">
-	  <a href="#" class="fb-login"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>  	
-	  <a href="#" class="gp-login"><i class="fa fa-google-plus-square" aria-hidden="true"></i></a>  	
-	  <a href="#" class="tw-login"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>  	
-  </div>
-</div>
+  <table class="highlight centered responsive-table">
+      <thead>
+      <tr>
+          <th>Quizz name</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>History</th>
+      </tr>
+      </thead>
+      <tbody>
+      @for ($i = 0; $i < count($data); ++$i)
+        <tr>
+            <td>{!! $data[$i]->name !!}</td>
+            <td>{!! $data[$i]->date !!}</td>
+            <td>{!! $data[$i]->time !!}</td>
+            <td><a class="waves-effect waves-light btn" href="#modal{!! $i+1 !!}">History</a></td>
+        </tr>
+      @endfor
+      </tbody>
+  </table>
 
-<video id="my-video" class="video" muted loop>
-  <source src="media/demo.mp4" type="video/mp4">
-  <source src="media/demo.ogv" type="video/ogg">
-  <source src="media/demo.webm" type="video/webm">
-</video>
-
-<script>
-(function() {
-  var video = document.getElementById("my-video");
-
-  video.addEventListener("canplay", function() {
-    video.play();
-  });
-})();
-</script>
+  @for ($i = 0; $i < count($data); ++$i)
+    <div id="modal{!! $i+1 !!}" class="modal">
+      <div class="modal-content">
+        <h4>{!! $data[$i]->name !!}</h4>
+        <p>{!! $data[$i]->description !!}</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+      </div>
+    </div>
+  @endfor
 @endsection

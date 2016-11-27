@@ -17,7 +17,7 @@
   
 <nav>
     <div class="nav-wrapper">
-        <a href="home" class="brand-logo"><i class="fa fa-graduation-cap"></i></a>
+        <a href="home" class="brand-logo"><i class="fa fa-graduation-cap"></i>GetQuizzd</a>
         <ul class="right">
             <li><a href="home">Home</a></li>
             <li><a href="quizzes">Quizzes</a></li>
@@ -31,6 +31,7 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/js/materialize.min.js"></script>
+<script type="text/javascript" src="/js/custom.js"></script>
 
 </body>
 </html>
