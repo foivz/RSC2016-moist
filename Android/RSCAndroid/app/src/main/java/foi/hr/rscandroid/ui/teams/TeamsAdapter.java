@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -41,9 +42,15 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.tvTeamName.setText(teams.get(position).getTeamName());
         holder.tvMaxMembers.setText(context.getString(R.string.max_slots_in_team, teams.get(position).getMaxAmountOfMembers()));
+        holder.recruit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onRecruit(teams.get(holder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override
@@ -57,6 +64,11 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
         listener.onTeamClicked(teams.get(itemPos));
     }
 
+    public void add(Team team) {
+        teams.add(team);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_team_name)
@@ -64,6 +76,9 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
 
         @BindView(R.id.tv_max_members)
         TextView tvMaxMembers;
+
+        @BindView(R.id.recruitButton)
+        Button recruit;
 
 
         public ViewHolder(View itemView) {

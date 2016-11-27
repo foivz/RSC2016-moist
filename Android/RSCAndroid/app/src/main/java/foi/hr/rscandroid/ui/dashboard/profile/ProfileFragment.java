@@ -20,6 +20,7 @@ import butterknife.OnClick;
 import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.UserRequest;
 import foi.hr.rscandroid.ui.BaseFragment;
+import foi.hr.rscandroid.ui.dashboard.DashboardActivity;
 import foi.hr.rscandroid.ui.login.LoginActivity;
 import foi.hr.rscandroid.ui.profile.ProfilePresenter;
 import foi.hr.rscandroid.ui.profile.ProfileView;
@@ -144,8 +145,8 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
         tvNickname.setVisibility(View.VISIBLE);
         tvNicknameData.setText(etNicknameData.getText());
         etNicknameData.setVisibility(View.GONE);
+        user.getUserData().setNickname(etNicknameData.getText().toString());
         presenter.updateNickname(etNicknameData.getText().toString(), user.getUserData().getId());
-
     }
 
     @OnClick(R.id.btn_decline)
@@ -165,6 +166,9 @@ public class ProfileFragment extends BaseFragment implements ProfileView {
     @Override
     public void onNickUpdateSuccess() {
         user.getUserData().setNickname(etNicknameData.getText().toString());
+
+        ((DashboardActivity) getBaseActivity()).updateUser(user);
+
         Toast.makeText(getBaseActivity(), "Nickname successfully updated", Toast.LENGTH_SHORT).show();
 
     }
