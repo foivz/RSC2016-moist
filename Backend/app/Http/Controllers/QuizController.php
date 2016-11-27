@@ -59,7 +59,6 @@ class QuizController extends Controller
     }
 
     /**
-     * @Middleware("auth:api")
      * @Post("/api/quiz/", as="api.quiz.create")
      */
     public function create(Request $request)
