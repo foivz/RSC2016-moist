@@ -30,6 +30,10 @@ public class TeamActivity extends BaseActivity implements TeamView, OnTeamClickL
 
     public static final String EXTRA_TEAM_ID = "EXTRA_TEAM_ID";
 
+    public static final String EXTRA_TEAM = "team";
+
+    public static final int REQUEST_CODE_SCAN = 420;
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -46,6 +50,8 @@ public class TeamActivity extends BaseActivity implements TeamView, OnTeamClickL
     private ArrayList<Team> teams = new ArrayList<>();
 
     private TeamPresenter presenter;
+
+    private TeamsAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +87,7 @@ public class TeamActivity extends BaseActivity implements TeamView, OnTeamClickL
                 return true;
 
             case R.id.scan:
-                startActivity(new Intent(this, ScannerActivity.class));
+                startActivityForResult(new Intent(this, ScannerActivity.class), REQUEST_CODE_SCAN);
                 return true;
 
             default:
@@ -90,11 +96,22 @@ public class TeamActivity extends BaseActivity implements TeamView, OnTeamClickL
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_CODE_SCAN && resultCode == RESULT_OK && data != null) {
+            Team team = data.getParcelableExtra(EXTRA_TEAM);
+            adapter.add(team);
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
     public void populateAdapter(ArrayList<Team> teams) {
         noTeamsContainer.setVisibility(View.GONE);
         rvTeams.setVisibility(View.VISIBLE);
         rvTeams.setLayoutManager(new LinearLayoutManager(this));
-        rvTeams.setAdapter(new TeamsAdapter(teams, this, rvTeams, this));
+        adapter = new TeamsAdapter(teams, this, rvTeams, this);
+        rvTeams.setAdapter(adapter);
     }
 
     @Override

@@ -64,6 +64,11 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
         listener.onTeamClicked(teams.get(itemPos));
     }
 
+    public void add(Team team) {
+        teams.add(team);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_team_name)

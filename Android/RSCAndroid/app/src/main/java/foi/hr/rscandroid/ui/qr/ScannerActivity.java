@@ -8,6 +8,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -20,10 +21,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import foi.hr.rscandroid.R;
+import foi.hr.rscandroid.data.models.Team;
 import foi.hr.rscandroid.ui.BaseActivity;
+import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
+import foi.hr.rscandroid.ui.teams.TeamActivity;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class ScannerActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
+public class ScannerActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks, ScannerView {
 
     @BindView(R.id.surfacePreview)
     SurfacePreview surfacePreview;
@@ -32,11 +36,15 @@ public class ScannerActivity extends BaseActivity implements EasyPermissions.Per
 
     private Handler handler = new Handler(Looper.getMainLooper());
 
+    private ScannerPresenter presenter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
         ButterKnife.bind(this);
+
+        presenter = MvpFactoryUtil.getPresenter(this);
 
         if (EasyPermissions.hasPermissions(this, Manifest.permission.CAMERA)) {
             createCamera();
@@ -93,8 +101,12 @@ public class ScannerActivity extends BaseActivity implements EasyPermissions.Per
 
     }
 
-    private void processScannedBarcode(String value) {
-
+    @Override
+    public void showNewTeam(Team team) {
+        Intent intent = new Intent();
+        intent.putExtra(TeamActivity.EXTRA_TEAM, team);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     class BarcodeTrackerFactory implements MultiProcessor.Factory<Barcode> {
@@ -122,7 +134,7 @@ public class ScannerActivity extends BaseActivity implements EasyPermissions.Per
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    processScannedBarcode(barcode.displayValue);
+                    presenter.proccessBarcode(barcode.displayValue);
                 }
             });
         }

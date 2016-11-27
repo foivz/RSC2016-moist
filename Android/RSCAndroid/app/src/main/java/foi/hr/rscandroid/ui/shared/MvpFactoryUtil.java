@@ -2,6 +2,7 @@ package foi.hr.rscandroid.ui.shared;
 
 
 import foi.hr.rscandroid.RSCApplication;
+import foi.hr.rscandroid.data.interactors.BarcodeInteractor;
 import foi.hr.rscandroid.data.interactors.EditAnswerInteractor;
 import foi.hr.rscandroid.data.interactors.FetchEventsInteractor;
 import foi.hr.rscandroid.data.interactors.GameInteractor;
@@ -26,6 +27,8 @@ import foi.hr.rscandroid.ui.login.LoginPresenter;
 import foi.hr.rscandroid.ui.login.LoginView;
 import foi.hr.rscandroid.ui.profile.ProfilePresenter;
 import foi.hr.rscandroid.ui.profile.ProfileView;
+import foi.hr.rscandroid.ui.qr.ScannerPresenter;
+import foi.hr.rscandroid.ui.qr.ScannerView;
 import foi.hr.rscandroid.ui.registration.RegistrationPresenter;
 import foi.hr.rscandroid.ui.registration.RegistrationView;
 import foi.hr.rscandroid.ui.tdetails.TeamDetailsPresenter;
@@ -74,6 +77,10 @@ public class MvpFactoryUtil {
     public static EditAnswerPresenter getPresenter(EditAnswerView view) {
         return new EditAnswerPresenter(view, new EditAnswerInteractor(RSCApplication.getApiService()));
 
+    }
+
+    public static ScannerPresenter getPresenter(ScannerView view) {
+        return new ScannerPresenter(view, new BarcodeInteractor(RSCApplication.getApiService()));
     }
 
 }
