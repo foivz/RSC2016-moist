@@ -12,6 +12,16 @@ use Illuminate\Support\Facades\DB;
 class TeamUserController extends Controller
 {
     /**
+     * @Get("/api/teams/users/{user_id}")
+     */
+    public function getUserTeams($user_id)
+    {
+        $ret['response']['teams'] = DB::select('SELECT t.* FROM teams t, team_members tm, users u WHERE tm.team_id = t.id AND u.id = tm.user_id AND u.id =' . $user_id);
+
+        return response($ret, Response::HTTP_OK);
+    }
+
+    /**
      * @Middleware("auth:api")
      * @Post("/api/team/{team_id}/user/{user_id}")
      */
