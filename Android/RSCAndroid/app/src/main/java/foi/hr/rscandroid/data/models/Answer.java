@@ -23,6 +23,9 @@ public class Answer implements Parcelable {
         isCorrect = in.readInt();
     }
 
+    public Answer() {
+    }
+
     public static final Creator<Answer> CREATOR = new Creator<Answer>() {
         @Override
         public Answer createFromParcel(Parcel in) {

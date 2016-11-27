@@ -42,6 +42,7 @@ import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.shared.ColorUtils;
 import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
 import foi.hr.rscandroid.ui.shared.OnTeamClickListener;
+import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 import foi.hr.rscandroid.ui.teams.TeamsAdapter;
 
 public class EventDetailsActivity extends BaseActivity implements EventDetailsView, OnTeamClickListener {
@@ -222,6 +223,12 @@ public class EventDetailsActivity extends BaseActivity implements EventDetailsVi
 
     @Override
     public void onTeamClicked(Team team) {
+        SharedPrefsHelper.setSharedPrefsInt("TEAM_ID", (int) team.getTeamId());
         FirebaseMessaging.getInstance().subscribeToTopic(team.getTeamId() + "");
+    }
+
+    @Override
+    public void onRecruit(Team team) {
+
     }
 }

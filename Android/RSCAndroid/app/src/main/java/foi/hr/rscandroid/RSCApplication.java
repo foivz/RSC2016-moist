@@ -6,6 +6,9 @@ import com.facebook.appevents.AppEventsLogger;
 import android.app.Application;
 import android.content.Intent;
 
+import java.util.List;
+
+import foi.hr.rscandroid.data.models.QuestionData;
 import foi.hr.rscandroid.data.networking.ApiManagerImpl;
 import foi.hr.rscandroid.data.networking.ApiService;
 import foi.hr.rscandroid.data.push.RSCFirebaseInstanceIdService;
@@ -22,6 +25,10 @@ public class RSCApplication extends Application {
     private static RSCApplication instance;
 
     private static ApiService apiService;
+
+    private static List<QuestionData> questions;
+
+    private static int currPos = 0;
 
     public static RSCApplication getInstance() {
         return instance;
@@ -47,5 +54,21 @@ public class RSCApplication extends Application {
 
     public static ApiService getApiService() {
         return apiService;
+    }
+
+    public static List<QuestionData> getQuestions() {
+        return questions;
+    }
+
+    public static void setQuestions(List<QuestionData> questions) {
+        RSCApplication.questions = questions;
+    }
+
+    public static void incrementCurrPos() {
+        currPos++;
+    }
+
+    public static int getCurrPos() {
+        return currPos;
     }
 }

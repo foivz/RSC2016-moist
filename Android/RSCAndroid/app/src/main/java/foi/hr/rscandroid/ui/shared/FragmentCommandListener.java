@@ -6,4 +6,7 @@ public interface FragmentCommandListener {
     void startTimer();
     void endTimer();
     void pauseTimer();
+
+    void rbChecked(int i);
+
 }
