@@ -229,6 +229,5 @@ public class EventDetailsActivity extends BaseActivity implements EventDetailsVi
 
     @Override
     public void onRecruit(Team team) {
-
     }
 }
