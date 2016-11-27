@@ -3,6 +3,7 @@ package foi.hr.rscandroid.ui.shared;
 
 import foi.hr.rscandroid.RSCApplication;
 import foi.hr.rscandroid.data.interactors.BarcodeInteractor;
+import foi.hr.rscandroid.data.interactors.CreateTeamInteractor;
 import foi.hr.rscandroid.data.interactors.EditAnswerInteractor;
 import foi.hr.rscandroid.data.interactors.FetchEventsInteractor;
 import foi.hr.rscandroid.data.interactors.GameInteractor;
@@ -33,6 +34,8 @@ import foi.hr.rscandroid.ui.registration.RegistrationPresenter;
 import foi.hr.rscandroid.ui.registration.RegistrationView;
 import foi.hr.rscandroid.ui.tdetails.TeamDetailsPresenter;
 import foi.hr.rscandroid.ui.tdetails.TeamDetailsView;
+import foi.hr.rscandroid.ui.teams.NewTeamPresenter;
+import foi.hr.rscandroid.ui.teams.NewTeamView;
 import foi.hr.rscandroid.ui.teams.TeamPresenter;
 import foi.hr.rscandroid.ui.teams.TeamView;
 
@@ -81,6 +84,10 @@ public class MvpFactoryUtil {
 
     public static ScannerPresenter getPresenter(ScannerView view) {
         return new ScannerPresenter(view, new BarcodeInteractor(RSCApplication.getApiService()));
+    }
+
+    public static NewTeamPresenter getPresenter(NewTeamView view) {
+        return new NewTeamPresenter(view, new CreateTeamInteractor(RSCApplication.getApiService()));
     }
 
 }

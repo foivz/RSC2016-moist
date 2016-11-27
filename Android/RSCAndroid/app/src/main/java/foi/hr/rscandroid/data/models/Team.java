@@ -14,17 +14,16 @@ public class Team implements Parcelable {
     @SerializedName("id")
     private long teamId;
 
-    @SerializedName("max_members")
-    private long currMembersNum;
-
     @SerializedName("size")
     private long maxAmountOfMembers;
 
+    public Team() {
+
+    }
 
     protected Team(Parcel in) {
         teamName = in.readString();
         teamId = in.readLong();
-        currMembersNum = in.readLong();
         maxAmountOfMembers = in.readLong();
     }
 
@@ -32,7 +31,6 @@ public class Team implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(teamName);
         dest.writeLong(teamId);
-        dest.writeLong(currMembersNum);
         dest.writeLong(maxAmountOfMembers);
     }
 
@@ -69,14 +67,6 @@ public class Team implements Parcelable {
         this.teamId = teamId;
     }
 
-    public long getCurrMembersNum() {
-        return currMembersNum;
-    }
-
-    public void setCurrMembersNum(long currMembersNum) {
-        this.currMembersNum = currMembersNum;
-    }
-
     public long getMaxAmountOfMembers() {
         return maxAmountOfMembers;
     }
@@ -84,5 +74,4 @@ public class Team implements Parcelable {
     public void setMaxAmountOfMembers(long maxAmountOfMembers) {
         this.maxAmountOfMembers = maxAmountOfMembers;
     }
-
 }
