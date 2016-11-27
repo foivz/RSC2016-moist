@@ -57,7 +57,7 @@ class QuizTeamController extends Controller
         $question = $request->get('request')['question'];
 
         $ret['question'] = $question;
-        $ret['answer'] = Answers::where('question_id', $question['id']);
+        $ret['answer'] = DB::select('select * from answers where question_id = ' . $question['id']);
 
         $this->pushNotificationNext($ret, $quiz_id);
 
