@@ -14,28 +14,36 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.Team;
+import foi.hr.rscandroid.ui.shared.OnTeamClickListener;
 
-public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> {
+public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> implements View.OnClickListener {
 
     private ArrayList<Team> teams = new ArrayList<>();
 
     private Context context;
 
-    public TeamsAdapter(ArrayList<Team> teams, Context context) {
+    private RecyclerView rvTeams;
+
+    private OnTeamClickListener listener;
+
+    public TeamsAdapter(ArrayList<Team> teams, Context context, RecyclerView rvTeams, OnTeamClickListener listener) {
         this.teams = teams;
         this.context = context;
+        this.rvTeams = rvTeams;
+        this.listener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_team, parent, false));
+        View view = LayoutInflater.from(context).inflate(R.layout.item_team, parent, false);
+        view.setOnClickListener(this);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.tvTeamName.setText(teams.get(position).getTeamName());
-        holder.tvCurrMembers.setText(context.getString(R.string.team_curr_members_string));
-        holder.tvMaxMembers.setText(context.getString(R.string.max_slots_in_team));
+        holder.tvMaxMembers.setText(context.getString(R.string.max_slots_in_team, teams.get(position).getMaxAmountOfMembers()));
     }
 
     @Override
@@ -43,13 +51,16 @@ public class TeamsAdapter extends RecyclerView.Adapter<TeamsAdapter.ViewHolder> 
         return teams.size();
     }
 
+    @Override
+    public void onClick(View view) {
+        int itemPos = rvTeams.getChildLayoutPosition(view);
+        listener.onTeamClicked(teams.get(itemPos));
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_team_name)
         TextView tvTeamName;
-
-        @BindView(R.id.tv_curr_members)
-        TextView tvCurrMembers;
 
         @BindView(R.id.tv_max_members)
         TextView tvMaxMembers;

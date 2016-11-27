@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import foi.hr.rscandroid.data.interactors.TeamInteractor;
 import foi.hr.rscandroid.data.models.Team;
+import foi.hr.rscandroid.ui.shared.Listener;
 
 public class TeamPresenter {
 
@@ -22,6 +23,22 @@ public class TeamPresenter {
             view.populateAdapter(teams);
         } else {
             view.showNoTeamsView();
+            view.showProgress();
+            interactor.fetchTeams(teamListener);
         }
     }
+
+    private Listener<ArrayList<Team>> teamListener = new Listener<ArrayList<Team>>() {
+        @Override
+        public void onSuccess(ArrayList<Team> team) {
+            view.hideProgress();
+            view.populateAdapter(team);
+        }
+
+        @Override
+        public void onError(String error) {
+            view.hideProgress();
+            view.showNoTeamsView();
+        }
+    };
 }

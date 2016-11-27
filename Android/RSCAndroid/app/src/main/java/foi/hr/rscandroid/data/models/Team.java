@@ -15,25 +15,25 @@ public class Team implements Parcelable {
     private long teamId;
 
     @SerializedName("max_members")
-    private long maxMembers;
+    private long currMembersNum;
 
     @SerializedName("size")
-    private long populatedMembers;
+    private long maxAmountOfMembers;
 
 
     protected Team(Parcel in) {
         teamName = in.readString();
         teamId = in.readLong();
-        maxMembers = in.readLong();
-        populatedMembers = in.readLong();
+        currMembersNum = in.readLong();
+        maxAmountOfMembers = in.readLong();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(teamName);
         dest.writeLong(teamId);
-        dest.writeLong(maxMembers);
-        dest.writeLong(populatedMembers);
+        dest.writeLong(currMembersNum);
+        dest.writeLong(maxAmountOfMembers);
     }
 
     @Override
@@ -69,20 +69,20 @@ public class Team implements Parcelable {
         this.teamId = teamId;
     }
 
-    public long getMaxMembers() {
-        return maxMembers;
+    public long getCurrMembersNum() {
+        return currMembersNum;
     }
 
-    public void setMaxMembers(long maxMembers) {
-        this.maxMembers = maxMembers;
+    public void setCurrMembersNum(long currMembersNum) {
+        this.currMembersNum = currMembersNum;
     }
 
-    public long getPopulatedMembers() {
-        return populatedMembers;
+    public long getMaxAmountOfMembers() {
+        return maxAmountOfMembers;
     }
 
-    public void setPopulatedMembers(long populatedMembers) {
-        this.populatedMembers = populatedMembers;
+    public void setMaxAmountOfMembers(long maxAmountOfMembers) {
+        this.maxAmountOfMembers = maxAmountOfMembers;
     }
 
 }

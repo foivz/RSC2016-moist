@@ -18,8 +18,12 @@ import foi.hr.rscandroid.data.models.Team;
 import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.dashboard.profile.ProfileFragment;
 import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
+import foi.hr.rscandroid.ui.shared.OnTeamClickListener;
+import foi.hr.rscandroid.ui.tdetails.TeamDetailsActivity;
 
-public class TeamActivity extends BaseActivity implements TeamView {
+public class TeamActivity extends BaseActivity implements TeamView, OnTeamClickListener {
+
+    public static final String EXTRA_TEAM_ID = "EXTRA_TEAM_ID";
 
     @BindView(R.id.rv_teams)
     RecyclerView rvTeams;
@@ -51,17 +55,26 @@ public class TeamActivity extends BaseActivity implements TeamView {
     @Override
     public void populateAdapter(ArrayList<Team> teams) {
         noTeamsContainer.setVisibility(View.GONE);
+        rvTeams.setVisibility(View.VISIBLE);
         rvTeams.setLayoutManager(new LinearLayoutManager(this));
-        rvTeams.setAdapter(new TeamsAdapter(teams, this));
+        rvTeams.setAdapter(new TeamsAdapter(teams, this, rvTeams, this));
     }
 
     @Override
     public void showNoTeamsView() {
+        rvTeams.setVisibility(View.GONE);
         noTeamsContainer.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.fab)
     public void fabClicked() {
         startActivity(new Intent(this, NewTeamActivity.class));
+    }
+
+    @Override
+    public void onTeamClicked(Team team) {
+        Intent intent = new Intent(this, TeamDetailsActivity.class);
+        intent.putExtra(EXTRA_TEAM_ID, team.getTeamId());
+        startActivity(intent);
     }
 }
