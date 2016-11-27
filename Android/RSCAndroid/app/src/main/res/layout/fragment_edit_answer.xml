@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
+                tools:context="foi.hr.rscandroid.ui.game.fillanswer.EditAnswerFragment">
+
+    <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:textSize="22sp"
+            android:textColor="@android:color/white"
+            android:text="QUESTION"/>
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/et_answer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"
+            android:layout_below="@id/tv_question"
+            android:hint="Answer"
+            android:orientation="vertical"
+            android:textColorHint="@android:color/white"
+            app:met_floatingLabelTextSize="16sp"
+            app:met_textColorHint="@color/dividerColor"
+            app:met_baseColor="@android:color/white"
+            app:met_primaryColor="@android:color/white"
+            app:met_hideUnderline="true"
+            app:met_floatingLabel="highlight"
+            app:met_errorColor="@color/registrationErrorColor"/>
+
+
+
+</RelativeLayout>
