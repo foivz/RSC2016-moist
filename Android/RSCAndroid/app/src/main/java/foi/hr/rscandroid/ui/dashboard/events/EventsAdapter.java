@@ -2,12 +2,14 @@ package foi.hr.rscandroid.ui.dashboard.events;
 
 import android.content.Context;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -31,16 +33,17 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     private Context context;
 
-    private long currentUserId;
+    @DrawableRes
+    private int iconRes;
 
     @ColorRes
     private int decoratorColor;
 
     private List<Event> events;
 
-    public EventsAdapter(Context context, long currentUserId, @ColorRes int decoratorColor, List<Event> events) {
+    public EventsAdapter(Context context, @DrawableRes int iconRes, @ColorRes int decoratorColor, List<Event> events) {
         this.context = context;
-        this.currentUserId = currentUserId;
+        this.iconRes = iconRes;
         this.decoratorColor = decoratorColor;
         this.events = events;
     }
@@ -53,6 +56,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Event event = events.get(position);
+
+        holder.icon.setImageResource(iconRes);
         holder.title.setText(event.getName());
 
         if (event.getDate() != null) {
@@ -80,7 +85,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         }
 
         holder.moderatorFlag.setTextColor(ResourcesCompat.getColor(context.getResources(), decoratorColor, null));
-        holder.moderatorFlag.setVisibility(currentUserId == event.getModeratorId() ? View.VISIBLE : View.GONE);
+        holder.moderatorFlag.setVisibility(event.isUserModerator() ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -89,6 +94,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.icon)
+        ImageView icon;
 
         @BindView(R.id.title)
         TextView title;

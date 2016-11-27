@@ -37,6 +37,7 @@ public class DashboardPresenter {
         } else {
             view.fetchCurrentLocation();
         }
+        processModerator();
         view.onEventsReceived(events);
     }
 
@@ -63,6 +64,15 @@ public class DashboardPresenter {
             eventLocation.setLatitude(event.getLatitude());
             eventLocation.setLongitude(event.getLongitude());
             event.setDistanceFromCurrentLocation(eventLocation.distanceTo(currentLocation));
+        }
+    }
+
+    private void processModerator() {
+        int id = SharedPrefsHelper.getSharedPrefsInt(SharedPrefsHelper.USER_ID);
+        for (Event event : events) {
+            if (event.getId() == id) {
+                event.setUserModerator(true);
+            }
         }
     }
 

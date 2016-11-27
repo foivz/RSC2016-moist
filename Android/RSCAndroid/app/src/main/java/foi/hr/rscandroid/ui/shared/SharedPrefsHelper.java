@@ -49,7 +49,7 @@ public class SharedPrefsHelper {
         PreferenceManager.getDefaultSharedPreferences(RSCApplication.getInstance()).edit().putInt(key, value).apply();
     }
 
-    public static long getSharedPrefsInt(String key) {
+    public static int getSharedPrefsInt(String key) {
         return PreferenceManager.getDefaultSharedPreferences(RSCApplication.getInstance()).getInt(key, 0);
     }
 }
