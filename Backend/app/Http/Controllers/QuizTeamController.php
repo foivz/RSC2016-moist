@@ -61,7 +61,7 @@ class QuizTeamController extends Controller
 
         $this->pushNotificationNext($ret, $quiz_id);
 
-        return response("{}", Response::HTTP_OK);
+        return response($ret, Response::HTTP_OK);
     }
 
     /**
