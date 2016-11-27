@@ -21,6 +21,7 @@ import foi.hr.rscandroid.data.models.Team;
 import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.dashboard.profile.ProfileFragment;
 import foi.hr.rscandroid.ui.qr.BarCodeActivity;
+import foi.hr.rscandroid.ui.qr.ScannerActivity;
 import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
 import foi.hr.rscandroid.ui.shared.OnTeamClickListener;
 import foi.hr.rscandroid.ui.tdetails.TeamDetailsActivity;
@@ -80,6 +81,8 @@ public class TeamActivity extends BaseActivity implements TeamView, OnTeamClickL
                 return true;
 
             case R.id.scan:
+                startActivity(new Intent(this, ScannerActivity.class));
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
