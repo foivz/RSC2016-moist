@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.Event;
 import foi.hr.rscandroid.ui.PermissionFragment;
+import foi.hr.rscandroid.ui.details.EventDetailsActivity;
 import foi.hr.rscandroid.ui.shared.SharedPrefsHelper;
 
 public class MapFragment extends PermissionFragment implements OnMapReadyCallback {
@@ -133,7 +134,7 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
             public void onInfoWindowClick(Marker marker) {
                 // TODO: navigate to details
                 if (marker.getSnippet() != null) {
-                    long id = Long.parseLong(marker.getSnippet());
+                    findEventAndShowDetails(marker.getSnippet());
                 }
             }
         });
@@ -191,6 +192,27 @@ public class MapFragment extends PermissionFragment implements OnMapReadyCallbac
                 .title(event.getName())
                 .icon(bitmap)
                 .snippet(String.valueOf(event.getId())));
+    }
+
+    private void findEventAndShowDetails(String stringId) {
+        long id;
+        try {
+            id = Long.parseLong(stringId);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        for (Event event : events) {
+            if (event.getId() == id) {
+                navigateToDetails(event);
+                return;
+            }
+        }
+    }
+
+    private void navigateToDetails(Event event) {
+        startActivity(EventDetailsActivity.newInstance(getContext(), event, R.color.tab_map));
     }
 
     @Override

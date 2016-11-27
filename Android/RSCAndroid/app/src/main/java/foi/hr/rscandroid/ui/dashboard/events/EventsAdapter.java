@@ -23,7 +23,12 @@ import foi.hr.rscandroid.data.models.Event;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
 
-    private static final String DATE_TIME_PATTERN = "dd.MM.yyyy. ";
+    public interface EventClickListener {
+
+        void onEventSelected(Event event);
+    }
+
+    private static final String DATE_TIME_PATTERN = "dd.MM.yyyy.";
 
     public static final String METERS = " m";
 
@@ -41,11 +46,15 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
     private List<Event> events;
 
-    public EventsAdapter(Context context, @DrawableRes int iconRes, @ColorRes int decoratorColor, List<Event> events) {
+    private EventClickListener listener;
+
+    public EventsAdapter(Context context, @DrawableRes int iconRes, @ColorRes int decoratorColor, List<Event> events,
+                         EventClickListener listener) {
         this.context = context;
         this.iconRes = iconRes;
         this.decoratorColor = decoratorColor;
         this.events = events;
+        this.listener = listener;
     }
 
     @Override
@@ -54,8 +63,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Event event = events.get(position);
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+        final Event event = events.get(position);
 
         holder.icon.setImageResource(iconRes);
         holder.title.setText(event.getName());
@@ -63,6 +72,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         if (event.getDate() != null) {
             String date = new SimpleDateFormat(DATE_TIME_PATTERN).format(event.getDate().toDate());
             if (!TextUtils.isEmpty(event.getTime())) {
+                date += " ";
                 date += event.getTime();
             }
 
@@ -86,6 +96,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         holder.moderatorFlag.setTextColor(ResourcesCompat.getColor(context.getResources(), decoratorColor, null));
         holder.moderatorFlag.setVisibility(event.isUserModerator() ? View.VISIBLE : View.GONE);
+
+        holder.content.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onEventSelected(events.get(holder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override
@@ -94,6 +111,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.contentView)
+        ViewGroup content;
 
         @BindView(R.id.icon)
         ImageView icon;
