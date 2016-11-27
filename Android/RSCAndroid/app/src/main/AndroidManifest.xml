@@ -74,8 +74,11 @@
         <activity
                 android:name=".ui.dashboard.DashboardActivity"
                 android:screenOrientation="portrait"/>
-        <activity android:name=".ui.tdetails.TeamDetailsActivity"
+        <activity
+                android:name=".ui.tdetails.TeamDetailsActivity"
                 android:theme="@style/TeamsTheme">
+        </activity>
+        <activity android:name=".ui.game.GameActivity">
         </activity>
     </application>
 
