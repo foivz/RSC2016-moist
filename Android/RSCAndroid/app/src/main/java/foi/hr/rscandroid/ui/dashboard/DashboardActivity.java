@@ -285,4 +285,8 @@ public class DashboardActivity extends BaseActivity implements DashboardView {
             });
         }
     }
+
+    public void updateUser(UserRequest user) {
+        this.user = user;
+    }
 }
