@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "24623373370",
+    "firebase_url": "https://rsc2016-cebe7.firebaseio.com",
+    "project_id": "rsc2016-cebe7",
+    "storage_bucket": "rsc2016-cebe7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24623373370:android:e5e212d1d3113064",
+        "android_client_info": {
+          "package_name": "foi.hr.rscandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24623373370-pqv79hflr613udgmhqgftj89e78t81jf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "foi.hr.rscandroid",
+            "certificate_hash": "EBFAEACA576FCE2D0A0AD5FB18DBE493335D74E2"
+          }
+        },
+        {
+          "client_id": "24623373370-uuc4qcdodj93e40obdl21pf29780v3m5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBPQlX_Cou0qRytRTIPlCW-zuS8CmaVjM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "24623373370-uuc4qcdodj93e40obdl21pf29780v3m5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

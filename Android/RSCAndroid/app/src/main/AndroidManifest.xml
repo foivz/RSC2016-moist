@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="foi.hr.rscandroid">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <application
+            android:name=".RSCApplication"
+            android:allowBackup="true"
+            android:icon="@drawable/ic_app"
+            android:label="@string/app_name"
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme">
+        <service android:name=".data.push.RSCFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service android:name=".data.push.RSCFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <meta-data
+                android:name="com.facebook.sdk.ApplicationId"
+                android:value="@string/facebook_app_id"/>
+        <meta-data
+                android:name="com.google.android.geo.API_KEY"
+                android:value="@string/google_key"/>
+
+        <activity
+                android:name=".ui.splash.SplashActivity"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.login.LoginActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="@string/fb_login_protocol_scheme"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".ui.registration.RegistrationActivity"
+                android:theme="@style/RegistrationTheme"
+                android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity
+                android:name=".ui.teams.TeamActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme">
+        </activity>
+        <activity
+                android:name=".ui.teams.NewTeamActivity"
+                android:theme="@style/TeamsTheme"
+                android:windowSoftInputMode="adjustResize">
+        </activity>
+        <activity
+                android:name=".ui.main.MainActivity"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name=".ui.dashboard.DashboardActivity"
+                android:screenOrientation="portrait"/>
+
+        <activity
+                android:name=".ui.details.EventDetailsActivity"
+                android:screenOrientation="portrait"/>
+
+        <activity
+                android:name=".ui.tdetails.TeamDetailsActivity"
+                android:theme="@style/TeamsTheme"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".ui.game.GameActivity"
+                android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".ui.qr.BarCodeActivity"/>
+        <activity android:name=".ui.qr.ScannerActivity"/>
+    </application>
+
+</manifest>
