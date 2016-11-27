@@ -5,6 +5,8 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,12 +23,20 @@ public class BarCodeActivity extends BaseActivity {
 
     private static final int SIZE = 1000;
 
+    public static final String EXTRA_DATA = "data";
+
     @BindView(R.id.imageCode)
     ImageView imageCode;
 
     private int white;
 
     private int black;
+
+    public static Intent newInstance(Context context, String data) {
+        Intent intent = new Intent(context, BarCodeActivity.class);
+        intent.putExtra(EXTRA_DATA, data);
+        return intent;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +49,7 @@ public class BarCodeActivity extends BaseActivity {
 
         Bitmap bitmap = null;
         try {
-            bitmap = encodeAsBitmap("jedan mali strdasjkdjkasdkjasjdasjkdbsajkdbsajkbdkjasbdjaksing");
+            bitmap = encodeAsBitmap(getIntent().getStringExtra(EXTRA_DATA));
         } catch (WriterException e) {
             e.printStackTrace();
         }

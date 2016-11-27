@@ -5,6 +5,7 @@ import foi.hr.rscandroid.data.models.Team;
 
 public interface OnTeamClickListener {
 
-    public void onTeamClicked(Team team);
+    void onTeamClicked(Team team);
 
+    void onRecruit(Team team);
 }

@@ -17,6 +17,7 @@ import foi.hr.rscandroid.R;
 import foi.hr.rscandroid.data.models.Team;
 import foi.hr.rscandroid.ui.BaseActivity;
 import foi.hr.rscandroid.ui.dashboard.profile.ProfileFragment;
+import foi.hr.rscandroid.ui.qr.BarCodeActivity;
 import foi.hr.rscandroid.ui.shared.MvpFactoryUtil;
 import foi.hr.rscandroid.ui.shared.OnTeamClickListener;
 import foi.hr.rscandroid.ui.tdetails.TeamDetailsActivity;
@@ -76,5 +77,10 @@ public class TeamActivity extends BaseActivity implements TeamView, OnTeamClickL
         Intent intent = new Intent(this, TeamDetailsActivity.class);
         intent.putExtra(EXTRA_TEAM_ID, team.getTeamId());
         startActivity(intent);
+    }
+
+    @Override
+    public void onRecruit(Team team) {
+        startActivity(BarCodeActivity.newInstance(this, "team_id=" + team.getTeamId()));
     }
 }
