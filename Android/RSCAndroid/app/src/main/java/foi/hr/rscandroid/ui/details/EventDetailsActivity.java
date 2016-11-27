@@ -224,4 +224,9 @@ public class EventDetailsActivity extends BaseActivity implements EventDetailsVi
     public void onTeamClicked(Team team) {
         FirebaseMessaging.getInstance().subscribeToTopic(team.getTeamId() + "");
     }
+
+    @Override
+    public void onRecruit(Team team) {
+        // Nothing to do here
+    }
 }
