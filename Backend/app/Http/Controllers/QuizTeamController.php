@@ -79,11 +79,16 @@ class QuizTeamController extends Controller
      */
     public function evaluateAnswer(Request $request, $quiz_id, $team_id)
     {
+        $answers = $request->get('request')['answers'];
         $quiz_team = QuizTeam::where('quiz_id', $quiz_id)->where('team_id', $team_id);
-        $quiz_team->score = $quiz_team->score + 10;
-        $quiz_team->save();
 
-        // TODO iterate over list
+        for ($i = 0; $i < count($answers); ++$i) {
+            if ($answers[$i]['answer'] == true) {
+                $quiz_team->score = $quiz_team->score + 10;
+            }
+        }
+
+        $quiz_team->save();
 
         return response("{}", Response::HTTP_OK);
     }
