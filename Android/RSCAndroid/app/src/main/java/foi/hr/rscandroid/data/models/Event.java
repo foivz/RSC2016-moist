@@ -64,6 +64,7 @@ public class Event implements Parcelable {
         teams = in.createTypedArrayList(Team.CREATOR);
         distanceFromCurrentLocation = in.readFloat();
         userModerator = in.readInt() == 1;
+        date = (DateTime) in.readSerializable();
     }
 
     @Override
@@ -79,6 +80,7 @@ public class Event implements Parcelable {
         dest.writeTypedList(teams);
         dest.writeFloat(distanceFromCurrentLocation);
         dest.writeInt(userModerator ? 1 : 0);
+        dest.writeSerializable(date);
     }
 
     @Override
