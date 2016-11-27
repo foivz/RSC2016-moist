@@ -38,7 +38,7 @@ return [
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
-        'redirect' => 'we-dont-need-this-atm',
+        'redirect' => 'http://138.65.85.154:8000/social/facebook/redirect',
     ],
 
     'google' => [
