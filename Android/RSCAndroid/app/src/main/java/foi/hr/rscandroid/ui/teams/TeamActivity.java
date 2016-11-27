@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -25,6 +26,9 @@ import foi.hr.rscandroid.ui.tdetails.TeamDetailsActivity;
 public class TeamActivity extends BaseActivity implements TeamView, OnTeamClickListener {
 
     public static final String EXTRA_TEAM_ID = "EXTRA_TEAM_ID";
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @BindView(R.id.rv_teams)
     RecyclerView rvTeams;
