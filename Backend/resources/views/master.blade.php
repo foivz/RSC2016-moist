@@ -17,7 +17,7 @@
   
 <nav>
     <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Logo</a>
+        <a href="home" class="brand-logo"><i class="fa fa-graduation-cap"></i></a>
         <ul class="right">
             <li><a href="home">Home</a></li>
             <li><a href="quizzes">Quizzes</a></li>

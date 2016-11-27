@@ -32,7 +32,9 @@ class WebPagesController extends Controller
      */
     public function quizzes()
     {
-    	return view('pages.quizzes');
+    	$data = DB::select('SELECT q.* FROM quizzes q');
+
+    	return view('pages.quizzes')->with('data', $data);
     }
 
     /**

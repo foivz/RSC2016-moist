@@ -125,3 +125,8 @@ body {
   margin-left: 25%;
   width: 50%;
 }
+
+.brand-logo {
+  font-size: 50px;
+  margin-left: 15px;
+}
